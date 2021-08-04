@@ -1,0 +1,15 @@
+.card-row {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    margin-left: 25px;
+    
+}
+
+.card-col{
+    background: url('../images/closed_card.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 15vh;
+    width: 10vw;
+}
