@@ -19,13 +19,18 @@
     position: absolute;
     width: 100%;
     margin-left: 25px;
-    
+    gap: 60px;
 }
 
 .card{
     background: url('../images/closed_card.png');
     background-size: contain;
     background-repeat: no-repeat;
-    height: 15vh;
-    width: 10vw;
+    height: 17vh;
+    width: 6vw;
+    cursor: pointer;
 } 
+
+.card:hover{
+    box-shadow: 5px 5px 5px #ffffff;
+}

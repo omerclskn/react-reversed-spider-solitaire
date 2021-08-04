@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../assets/css/board.css'
 import CardRow from './CardRow'
 import CardGenerator from '../CardGenerator'
+import CardHolder from './CardHolder'
 
 function Board() {
 
@@ -9,9 +10,12 @@ function Board() {
 
     return (
         <div className="board">
-            {
-                cards.filter((item, index) => (index < 6)).map((card, index) => <CardRow card_row={ card } index_val={index} /> )
-            }
+            {   // call cardrow component to display cards 
+                cards.filter((item, index) => (index < 6)).map((card, index) => <CardRow card_row={ card } index_val={index} /> )}
+
+                {
+                // call carholder component to hold remaining cards
+                cards.filter((item, index) => (index >= 6)).map((card, index) => <CardHolder card_row={ card } index_val={index} /> )}
             
         </div>
     )
