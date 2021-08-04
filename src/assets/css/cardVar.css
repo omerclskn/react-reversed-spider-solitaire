@@ -1,4 +1,4 @@
-:root{
+:root {
     --as: url('../images/AS.png');
     --two: url('../images/2S.png');
     --three: url('../images/3S.png');
@@ -13,19 +13,3 @@
     --queen: url('../images/QS.png');
     --jack: url('../images/JS.png');
 }
-
-.card-row {
-    display: flex;
-    position: absolute;
-    width: 100%;
-    margin-left: 25px;
-    
-}
-
-.card{
-    background: url('../images/closed_card.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 15vh;
-    width: 10vw;
-} 

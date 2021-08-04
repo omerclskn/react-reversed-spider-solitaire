@@ -1,14 +1,14 @@
 import React from 'react'
 import '../assets/css/card.css'
-import CardCol from './Card'
+import Card from './Card'
 
-const Card = ({card_row, index_val}) => {
+const CardRow = ({card_row, index_val}) => {
     return (
         <div className="card-row">
 
-            {card_row.map((item) => <CardCol item={item} index_val={index_val} /> )}
+            {card_row.map((item) => <Card item={item} index_val={index_val} /> )}
         </div>
     )
 }
 
-export default Card
+export default CardRow
