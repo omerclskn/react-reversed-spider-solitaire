@@ -24,13 +24,14 @@
 
 .card{
     background: url('../images/closed_card.png');
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     height: 17vh;
     width: 6vw;
     cursor: pointer;
+    overflow: hidden;
 } 
 
 .card:hover{
-    box-shadow: 5px 5px 5px #ffffff;
+    box-shadow: 2px 2px 2px #ffffff;
 }

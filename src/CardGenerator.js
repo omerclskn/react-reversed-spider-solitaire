@@ -23,7 +23,11 @@ for (let index = 0; index < 10.4; index++) {
     else {card_split = [...card_split, [...cards.slice((index*10)+0, (index*10)+10)]]}
 }
 
-return card_split
+// split decks to initial and remaining, initials: 10 10 10 10 10 4, rems: 10 10 10 10 10, rems will be in card holder, initials will display on board
+const card_initial = card_split.filter((item, index) => (index < 6))
+const card_rem = card_split.filter((item, index) => (index >= 6))
+
+return {card_initial, card_rem}
 }
 
 export default CardGenerator

@@ -6,16 +6,17 @@ import CardHolder from './CardHolder'
 
 function Board() {
 
-    const cards = CardGenerator()
+    // get cards from cardgenerator
+    const {card_initial, card_rem} = CardGenerator()
 
     return (
         <div className="board">
             {   // call cardrow component to display cards 
-                cards.filter((item, index) => (index < 6)).map((card, index) => <CardRow card_row={ card } index_val={index} /> )}
+                card_initial.map((card, index) => <CardRow key={index} card_row={card} index_val={index} /> )}
 
                 {
                 // call carholder component to hold remaining cards
-                cards.filter((item, index) => (index >= 6)).map((card, index) => <CardHolder card_row={ card } index_val={index} /> )}
+                card_rem.map((card, index) => <CardHolder key={index} card_rem={ card } index_val={index} /> )}
             
         </div>
     )
