@@ -1,6 +1,7 @@
 import React from 'react'
 import '../assets/css/board.css'
-import CardRow from './CardRow'
+import Card from './Card'
+import CardCol from './CardCol'
 import CardGenerator from '../CardGenerator'
 import CardHolder from './CardHolder'
 
@@ -11,8 +12,9 @@ function Board() {
 
     return (
         <div className="board">
-            {   // call cardrow component to display cards 
-                card_initial.map((card, index) => <CardRow key={index} card_row={card} index_val={index} /> )}
+            {   // call cardrow component to display cards
+                card_initial.map((sub, subindex) =>
+                <CardCol card_col={sub} key={subindex} /> )}
 
                 {
                 // call carholder component to hold remaining cards

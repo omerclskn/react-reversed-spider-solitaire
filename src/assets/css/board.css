@@ -2,4 +2,5 @@
     background: url('../images/green_back.jpg');
     height: 100vh;
     width: 100vw;
+    display: flex;
 }
