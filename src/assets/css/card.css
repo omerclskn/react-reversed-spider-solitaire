@@ -33,3 +33,7 @@
 .card:hover{
     box-shadow: 2px 2px 2px #ffffff;
 }
+
+.selectedCard{
+    border: 2px solid red
+}

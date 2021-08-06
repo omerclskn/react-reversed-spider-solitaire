@@ -1,8 +1,11 @@
+import linkedlist from './components/linkedlist'
 
 class card {
-    constructor(deck, value){
+    constructor(deck, value, show, active){
         this.deck = deck;
-        this.value = value
+        this.value = value;
+        this.show = show;
+        this.active = active
     }
 }
 
@@ -13,11 +16,11 @@ let cards = []
 // generate 8 deck of cards
 for (let index = 0; index < 8; index++) {
     cardRank.forEach((item) => {
-    cards.push(new card(index, item))
+        cards.push(new card(index, item, false, false))
     })
 }
 
-console.log(cards)
+//console.log(cards)
 
 // shuffle array
 cards = cards.sort(() => Math.random() - 0.5)
@@ -37,8 +40,9 @@ for (let index = 0; index < 10; index++) {
 for (let index = 0; index < 10; index++) {
     for (let index2 = 0; index2 <= 6; index2++) {
         if(index < 4){
-            if(cards[(index*6)+index2] === card_split[index][index2])
+            if(cards[(index*6)+index2] === card_split[index][index2]){
                 console.log('true')
+            }
         }
         else{
             if(index2 < 5){
@@ -49,9 +53,18 @@ for (let index = 0; index < 10; index++) {
     }
 }
 
-// split decks to initial and remaining, initials: 10 10 10 10 10 4, rems: 10 10 10 10 10, rems will be in card holder, initials will display on board
+card_split = linkedlist(card_split)
+console.log(card_split)
+
+// split decks to initial and remaining, initials: 6 6 6 6 5 5 5 5 5 5, rems: 50, rems will be in card holder, initials will display on board
 const card_initial = card_split
 const card_rem = cards.filter((item, index) => (index >= 54))
+
+for (let index = 0; index < 10; index++) {
+    card_initial[index].val.show = true;
+}
+
+//console.log(card_initial)
 
 return {card_initial, card_rem}
 }

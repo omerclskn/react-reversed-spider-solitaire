@@ -1,7 +1,7 @@
 
 const cardTypeFinder = ({item}) => {
     // this switch case gives true css variable
-    switch (item.value) {
+    switch (item.val.value) {
             case "1":
                 return "--as"
             case "2":
