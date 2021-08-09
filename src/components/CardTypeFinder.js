@@ -1,5 +1,5 @@
 
-const cardTypeFinder = ({item}) => {
+const cardTypeFinder = (item) => {
     // this switch case gives true css variable
     switch (item.val.value) {
             case "1":

@@ -12,10 +12,8 @@ function Board() {
     console.log(card_initial)
 
     let cards = []
-    for (let index = 0; index < card_initial.length; index++) {
-        console.log(card_initial[index], index)
-        cards.push(<CardCol card_col={card_initial[index]} key={index} />)
-    }
+        cards.push(<CardCol card_col={card_initial} />)
+    
 
     return (
         <div className="board">
@@ -29,7 +27,7 @@ function Board() {
 
                 {
                 // call carholder component to hold remaining cards
-                card_rem.map((card, index) => <CardHolder key={index} card_rem={ card } index_val={index} /> )}
+                /*card_rem.map((card, index) => <CardHolder key={index} card_rem={ card } index_val={index} /> )*/}
             
         </div>
     )

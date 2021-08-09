@@ -2,15 +2,45 @@ import React, { useState, useEffect } from 'react'
 import '../assets/css/card.css'
 import CardTypeFinder from './CardTypeFinder'
 import { useDrag } from 'react-dnd'
+import linkedlist from './linkedlist'
 
-const Card = ({item, id}) => {
+const Card = ({item, id, onClick}) => {
 
     const [active, setActive] = useState(item.val.active)
-    //console.log(item)
+    const [ card, setCard ] = useState(item)
+    const [ anySelect, setAnySelect ] = useState(false)
 
-    const handleClick = (e) => {
-        e.preventDefault()
-        console.log(item)
+    //console.log(item)
+    
+    const generateNewCard = (id) => {
+        const newCard = {
+            deck: +id[2],
+            value: id[0],
+            show: false,
+            active: false
+        }
+
+        const cardLink = {
+            val: newCard,
+            next: null
+        }
+
+        return cardLink
+    }
+
+    const checkSelected = () => {
+        let anySelected = document.getElementsByClassName("selectedCard");
+        
+        if(anySelected.length === 0) return false
+        let selectedId = anySelected.item(0).id
+
+        return generateNewCard(selectedId)
+    }
+
+    const handleClick = (item) => (e) => {
+        if (!checkSelected()) {
+             e.preventDefault()
+        //console.log(item)
         let iter = 0;
         let head = item;
         console.log("girdi")
@@ -21,24 +51,30 @@ const Card = ({item, id}) => {
             if(next_value !== cur_value ) {
                 return false
             }
+
             item = item.next
             iter += 1
         }
-
-        console.log(item)
-        console.log(head)
         
-        for (let index = 0; index < iter; index++) {
+        for (let index = 0; index <= iter; index++) {
             head.val.active = true
             setActive(true)
             head = head.next
         }
-        
+            setAnySelect(true)   
+        }else{
+            console.log(item)
+            item.next = checkSelected()
+            console.log(item)
+            setAnySelect(false)
+            console.log(anySelect)
+        }
+       
     }
-
+    
     //const id = (item.value + " " + item.deck)
     //console.log(item)
-    const cardType = CardTypeFinder({item})
+    const cardType = CardTypeFinder(item)
     /*
     const [{isDragging}, drag] = useDrag(() => ({
         type: 'card',
@@ -53,8 +89,8 @@ const Card = ({item, id}) => {
         <div 
             //ref={drag}
             id={id}
-            onClick={handleClick}
             className={"card " + (active ? 'selectedCard' : '') } 
+            //onClick={handleClick(item)}
             style={{ 
             //marginTop:((6-index)*20), 
             //zIndex:6-index, 
