@@ -3,17 +3,25 @@ import '../assets/css/card.css'
 import Card from './Card'
 import { useDrop } from 'react-dnd'
 import CardTypeFinder from './CardTypeFinder'
+import CardGenerator from '../CardGenerator'
 
-const CardCol = ({card_col}) => {
+const CardCol = () => {
 
-    //let board = card_col
-    const [ allCards, setAllCards ] = useState(card_col)
+    const {
+        card_initial,
+        card_rem
+    } = CardGenerator()
+
+    const [allCards, setAllCards] = useState(card_initial)
     const [ highlighted, setHighlighted ] = useState({})
     const [ active, setActive ] = useState(false)
+    const [ request, setRequest ] = useState(0)
+    const [remCards, setRemCards] = useState(card_rem)
     //const [_, forceUpdate] = useReducer((x) => x + 1, 0)
 
+    console.log(allCards, remCards)
+
     const removeSelected = (remove) => {
-        console.log(allCards)
      for (let index = 0; index < allCards.length; index++) {
             let element = allCards[index];
             let prev
@@ -25,7 +33,6 @@ const CardCol = ({card_col}) => {
                 element = element.next
             }
         }   
-        console.log(allCards)
     }
 
     const removeHighlight = (remove) => {
@@ -47,7 +54,6 @@ const CardCol = ({card_col}) => {
             while (element !== null) {
                 let prev
                 if (element === item) {
-                    console.log("set")
                     element.next = next
                 }
                 if (element === next) {
@@ -60,26 +66,52 @@ const CardCol = ({card_col}) => {
     }
 
     const setCardDisplay = () => {
-    
-    for (let index = 0; index < 10; index++) {
-        let element = allCards[index]
+        for (let index = 0; index < 10; index++) {
+            let element = allCards[index]
+            while(element.next !== null) {
+                element = element.next
+            }
+        element.val.show = true;
+        }
+    }
 
-        while(element.next !== null) {
-            element = element.next
+    const createLinked = (element) => {
+        console.log(element)
+        class Link {
+            constructor(val) {
+                this.val = val
+                this.next = null
+            }
         }
 
-    element.val.show = true;
+        return new Link(element)
+    }
+
+    const clickGetCards = (e) => {
+        if (request < 5) {
+            setRequest(request + 1)
+
+            for (let index = 0; index < allCards.length; index++) {
+                let element = allCards[index];
+                while (element.next !== null) {
+                    element = element.next
+                }
+                element.next = createLinked(remCards.shift())
+                setRemCards(remCards)
+            }
+            setCardDisplay()
+        }else{
+            alert("no card left")
         }
+        
     }
     
     const handleClick = (item) => (e) => {
 
         if (!active) {
         
-        console.log(item)
         let iter = 0;
         let head = item;
-        console.log("girdi")
         
         while(item.next !== null){
             
@@ -100,23 +132,19 @@ const CardCol = ({card_col}) => {
         }
         setActive(true)
         } else{
-            let nextValue = highlighted
-            console.log("remove", highlighted)
-            console.log(nextValue)
-            console.log(item)
 
-            if (+item.val.value === +nextValue.val.value + 1) {
+            if (+item.val.value === +highlighted.val.value + 1) {
             removeSelected(highlighted)
-            setCards(item, nextValue)
+            setCards(item, highlighted)
             
             while (item !== null) {
-                console.log(item)
                 item.val.active = false
                 item = item.next
             }
             }
             else{
-               removeHighlight(nextValue)
+                alert("you cannot my friend")
+                removeHighlight(highlighted)
             }
             
             setActive(false)
@@ -176,15 +204,16 @@ const CardCol = ({card_col}) => {
         <div 
         className="cards">
             {
-                card_col.map((board, index) => (
+                allCards.map((board, index) => (
                     <div className="cards-col"> 
-                        {
-                            cardsPush(board, index)
-                        }
+                        { cardsPush(board, index) }
                     </div>
                 ))
 
             }
+            <div className = "card cardholder"
+                onClick = {clickGetCards} >
+                </div>
         </div>
     )
 }

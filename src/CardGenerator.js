@@ -9,6 +9,14 @@ class card {
     }
 }
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array
+}
+
 const CardGenerator = () => {
    const cardRank = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"];
 
@@ -23,16 +31,19 @@ for (let index = 0; index < 8; index++) {
 //console.log(cards)
 
 // shuffle array
-cards = cards.sort(() => Math.random() - 0.5)
+
+cards = shuffleArray(cards)
 
 // split array by index then card_split will be 10 array of arrays
 let card_split = []
+let temp = 0
 for (let index = 0; index < 10; index++) {
     if(index < 4){
         card_split = [...card_split, [...cards.slice((index*6)+0, (index*6)+6)]]
     }
     else {
-        card_split = [...card_split, [...cards.slice((index*6)+0, (index*6)+5)]]
+        card_split = [...card_split, [...cards.slice((index*6)+0-temp, (index*6)+5-temp)]]
+        temp += 1
     }
 }
 
@@ -54,7 +65,6 @@ for (let index = 0; index < 10; index++) {
 }
 
 card_split = linkedlist(card_split)
-console.log(card_split)
 
 // split decks to initial and remaining, initials: 6 6 6 6 5 5 5 5 5 5, rems: 50, rems will be in card holder, initials will display on board
 const card_initial = card_split
@@ -67,8 +77,6 @@ for (let index = 0; index < 10; index++) {
     }
     element.val.show = true;
 }
-
-//console.log(card_initial)
 
 return {card_initial, card_rem}
 }

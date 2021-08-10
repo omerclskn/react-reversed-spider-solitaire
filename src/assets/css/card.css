@@ -43,3 +43,8 @@
 .selectedCard{
     border: 2px solid red
 }
+
+.cardholder {
+    top: 70%;
+    left: 85%;
+}

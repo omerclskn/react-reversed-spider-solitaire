@@ -7,12 +7,6 @@ import CardHolder from './CardHolder'
 function Board() {
 
     // get cards from cardgenerator
-    const {card_initial, card_rem} = CardGenerator()
-
-    console.log(card_initial)
-
-    let cards = []
-        cards.push(<CardCol card_col={card_initial} />)
     
 
     return (
@@ -22,7 +16,8 @@ function Board() {
                 Object.keys(card_initial).map((sub, subindex) =>
                 <CardCol card_col={card_initial[sub]} sub={sub} subindex={subindex} /> 
 
-            )*/     cards
+            )*/   
+            <CardCol  / >
             }
 
                 {

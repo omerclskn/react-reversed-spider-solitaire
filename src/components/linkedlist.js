@@ -1,7 +1,9 @@
 
-function Link(val){
-    this.val = val;
-    this.next = null;
+class Link {
+    constructor(val) {
+        this.val = val;
+        this.next = null;
+    }
 }
 
 function createLink(item){
