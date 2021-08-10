@@ -61,7 +61,11 @@ const card_initial = card_split
 const card_rem = cards.filter((item, index) => (index >= 54))
 
 for (let index = 0; index < 10; index++) {
-    card_initial[index].val.show = true;
+    let element = card_initial[index]
+    while (element.next !== null) {
+        element = element.next
+    }
+    element.val.show = true;
 }
 
 //console.log(card_initial)

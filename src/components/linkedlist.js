@@ -1,17 +1,16 @@
-import { List, Item } from 'linked-list'
 
-function L(val){
+function Link(val){
     this.val = val;
     this.next = null;
 }
 
-function createL(a){
+function createLink(item){
     let node, temp;
-    for(let i=a.length-1; i >= 0; i--){
+    for (let i = item.length - 1; i >= 0; i--) {
         if(!node)
-            node = new L(a[i]);
+            node = new Link(item[i]);
         else {
-            temp = new L(a[i]);
+            temp = new Link(item[i]);
             temp.next = node;
             node = temp;
         }
@@ -25,7 +24,7 @@ let linkedlist = []
 
 for (let index = 0; index < array.length; index++) {
     const element = array[index];
-    linkedlist = [...linkedlist, createL(element)]
+    linkedlist = [...linkedlist, createLink(element)]
 }
 
 //console.log(linkedlist)

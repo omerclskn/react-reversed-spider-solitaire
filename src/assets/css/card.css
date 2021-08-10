@@ -14,14 +14,15 @@
     --jack: url('../images/JS.png');
 }
 
-.card-col {
+.cards-col {
     width: 100%;
     margin-left: 25px;
+    margin-top: 30px;
 }
 
 .cards {
     display: flex;
-    gap: 50px;
+    gap: 130px;
 }
 
 .card{
@@ -32,7 +33,7 @@
     width: 6vw;
     cursor: pointer;
     overflow: hidden;
-    /*position: absolute;*/
+    position: absolute;
 } 
 
 .card:hover{
