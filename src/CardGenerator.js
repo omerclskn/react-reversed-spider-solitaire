@@ -39,15 +39,15 @@ let card_split = []
 let temp = 0
 for (let index = 0; index < 10; index++) {
     if(index < 4){
-        card_split = [...card_split, [...cards.slice((index*6)+0, (index*6)+6)]]
+        card_split = [...card_split, [...cards.slice((index*2)+0, (index*2)+2)]]
     }
     else {
-        card_split = [...card_split, [...cards.slice((index*6)+0-temp, (index*6)+5-temp)]]
+        card_split = [...card_split, [...cards.slice((index*2)+0-temp, (index*2)+1-temp)]]
         temp += 1
     }
 }
 
-// control
+/* control
 for (let index = 0; index < 10; index++) {
     for (let index2 = 0; index2 <= 6; index2++) {
         if(index < 4){
@@ -62,7 +62,7 @@ for (let index = 0; index < 10; index++) {
             }
         }
     }
-}
+}*/
 
 card_split = linkedlist(card_split)
 

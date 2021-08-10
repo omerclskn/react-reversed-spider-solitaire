@@ -16,21 +16,26 @@ const CardCol = () => {
     const [ highlighted, setHighlighted ] = useState({})
     const [ active, setActive ] = useState(false)
     const [ request, setRequest ] = useState(0)
-    const [remCards, setRemCards] = useState(card_rem)
-    //const [_, forceUpdate] = useReducer((x) => x + 1, 0)
-
-    console.log(allCards, remCards)
+    const [ remCards, setRemCards ] = useState(card_rem)
+    const [ complete, setComplete ] = useState(0)
+    const [_, forceUpdate] = useReducer((x) => x + 1, 0)
 
     const removeSelected = (remove) => {
      for (let index = 0; index < allCards.length; index++) {
             let element = allCards[index];
             let prev
             while (element !== null) {
+                    console.log(element)
+
                 if (element === remove) {
-                    prev.next = null
+                    prev===undefined ? allCards[index] = null : prev.next = null
+                    console.log(allCards)
                 }
-                prev = element
-                element = element.next
+
+                if (element !== null) {
+                 prev = element
+                 element = element.next
+                }
             }
         }   
     }
@@ -68,15 +73,16 @@ const CardCol = () => {
     const setCardDisplay = () => {
         for (let index = 0; index < 10; index++) {
             let element = allCards[index]
-            while(element.next !== null) {
+            while(element !== null && element.next !== null) {
                 element = element.next
             }
-        element.val.show = true;
+        if (element!==null) {
+            element.val.show = true;
+        } 
         }
     }
 
     const createLinked = (element) => {
-        console.log(element)
         class Link {
             constructor(val) {
                 this.val = val
@@ -93,10 +99,17 @@ const CardCol = () => {
 
             for (let index = 0; index < allCards.length; index++) {
                 let element = allCards[index];
-                while (element.next !== null) {
-                    element = element.next
+                if (element === null) {
+                    element = createLinked(remCards.shift())
+                    console.log(element)
+                    console.log(allCards)
                 }
-                element.next = createLinked(remCards.shift())
+                else {
+                    while (element.next !== null) {
+                        element = element.next
+                    }
+                    element.next = createLinked(remCards.shift())
+                }
                 setRemCards(remCards)
             }
             setCardDisplay()
@@ -104,6 +117,32 @@ const CardCol = () => {
             alert("no card left")
         }
         
+    }
+
+    const checkComplete = () => {
+        for (let index = 0; index < allCards.length; index++) {
+            let element = allCards[index];
+            let rank = 1
+            while (element !== null &&element.next !== null) {
+                if (element.val.show === true) {
+                    if ((+element.next.val.value + 1) === +element.val.value) {
+                        if (rank === 1) {
+                            var node = element
+                        }
+                       rank += 1
+                       if (rank === 13) {
+                           removeSelected(node)
+                           setComplete(complete + 1)
+                       }
+                    }
+                    else rank = 1
+                }
+                element = element.next
+            }
+        }
+        if (complete === 8) {
+            alert("congratulations")
+        }
     }
     
     const handleClick = (item) => (e) => {
@@ -149,6 +188,7 @@ const CardCol = () => {
             
             setActive(false)
             setHighlighted({})
+            checkComplete()
             setCardDisplay()
         }
     }
@@ -187,9 +227,9 @@ const CardCol = () => {
             onClick={handleClick(board)}
             style={{ 
             marginTop:(marginValue*20), 
-            ...( board.val.show ? {background: (`var(${cardType})`), 
+            ...( {background: (`var(${cardType})`), 
                                 backgroundSize: 'cover',
-                                backgroundRepeat: 'no-repeat'} : ""), }}  >
+                                backgroundRepeat: 'no-repeat'} ), }}  >
         </div>
         
         )

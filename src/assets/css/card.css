@@ -12,6 +12,7 @@
     --king: url('../images/KS.png');
     --queen: url('../images/QS.png');
     --jack: url('../images/JS.png');
+    --blank: url('../images/blank.jpg');
 }
 
 .cards-col {

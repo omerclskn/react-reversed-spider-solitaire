@@ -16,9 +16,9 @@ function Board() {
                 Object.keys(card_initial).map((sub, subindex) =>
                 <CardCol card_col={card_initial[sub]} sub={sub} subindex={subindex} /> 
 
-            )*/   
+            )*/   }
             <CardCol  / >
-            }
+            
 
                 {
                 // call carholder component to hold remaining cards
