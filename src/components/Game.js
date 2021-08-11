@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import '../assets/css/card.css'
-import { useDrop } from 'react-dnd'
 import CardTypeFinder from './CardTypeFinder'
 import CardGenerator from '../CardGenerator'
-import { useDrag } from 'react-dnd'
 
 const CardCol = () => {
 
@@ -39,35 +37,11 @@ const CardCol = () => {
 
     const removeHighlight = (remove) => {
         // remove highlighted card or cards
-     for (let index = 0; index < allCards.length; index++) {
-            let element = allCards[index];
-            while (element !== null) {
-                if (element === remove) {
-                    element.val.active = false
+            while (remove !== null) {
+                    remove.val.active = false
                     remove = remove.next
-                }
-                element = element.next
             }
-        }   
-    }
-
-    const setCards = (item, next) => {
-        // set cards for new placement
-        for (let index = 0; index < allCards.length; index++) {
-            let element = allCards[index];
-            while (element !== null) {
-                let prev
-                if (element === item) {
-                    element.next = next
-                }
-                if (element === next) {
-                    prev = null
-                }
-                prev = element
-                element = element.next
-            }
-        } 
-    }
+        }
 
     const setCardDisplay = () => {
         // traverse every card and set displayness to true if it's first element 
@@ -78,7 +52,7 @@ const CardCol = () => {
             }
         if (element!==null) {
             element.val.show = true;
-        } 
+            } 
         }
     }
 
@@ -90,7 +64,6 @@ const CardCol = () => {
                 this.next = null
             }
         }
-
         return new Link(element)
     }
 
@@ -147,47 +120,56 @@ const CardCol = () => {
         }
     }
     
-    const handleClick = (item) => (e) => {
+    const handleClick = (item, index) => (e) => {
         /* control the active variable, if active is true it means this is second click so need to check replacing
         but if false this means need to highlight or reject request */
-        if (!active) {
-        
-        let iter = 0; // how many cards will be select
-        let head = item; // need to hold head node because after control item's next, clicked item will be lost
-        
-        while(item.next !== null){
-            
-            let next_value = +item.next.val.value + 1;
-            let cur_value = +item.val.value;
-            // check cards if in correct order
-            if(next_value !== cur_value ) {
-                return false
-            }
+        if(!active) {
+            if (item !== null) {
+                let iter = 0; // how many cards will be select
+                let head = item; // need to hold head node because after control item's next, clicked item will be lost
 
-            item = item.next
-            iter += 1
-        }
-        setHighlighted(head) // highlight selected card
-        // if every item under clicked item, activate all
-        for (let index = 0; index <= iter; index++) {
-            head.val.active = true
-            head = head.next
-        }
-        setActive(true) // we have activated item
+                while (item.next !== null) {
+
+                    let next_value = +item.next.val.value + 1;
+                    let cur_value = +item.val.value;
+                    // check cards if in correct order
+                    if (next_value !== cur_value) {
+                        return false
+                    }
+
+                    item = item.next
+                    iter += 1
+                }
+                setHighlighted(head) // highlight selected card
+                // if every item under clicked item have correct sort, activate all
+                for (let index = 0; index <= iter; index++) {
+                    head.val.active = true
+                    head = head.next
+                }
+                setActive(true) // we have activated item   
+            }
         } else{
 
-            if (+item.val.value === +highlighted.val.value + 1 || item === null) { // check clicked item is correct for placing highlighted
+            if (item === null && +highlighted.val.value === 13) {
+                item = highlighted
+                removeSelected(highlighted)
+                allCards[index] = item
+                removeHighlight(item)
+           }
+            else if (+item?.val.value === +highlighted.val.value + 1) { // check clicked item is correct for placing highlighted
             removeSelected(highlighted) // remove card from old place
-            setCards(item, highlighted) // set cards accordingly
+            
             // remove card's activation
+            item.next = highlighted
+
             while (item !== null) {
                 item.val.active = false
                 item = item.next
-            }
+                }
             }
             else{
                 // if not correct feedback to user and remove highlight
-                alert("you cannot my friend")
+                item === null ? alert("Only King's can be placed to blank columns") : ( item === highlighted || alert("you cannot my friend"))
                 removeHighlight(highlighted)
             }
             // reset variables for new processes, check if any completed decks, set card's display based on new indexes
@@ -201,9 +183,20 @@ const CardCol = () => {
     const cardsPush = (card, index) => {
         let pushed =[]
         let marginValue = 0 // for placing cards
+        if (card === null) {
+            pushed.push(
+                <div
+                id = {0}
+                className={"blank"}
+                onClick = {
+                        handleClick(card, index)
+                    } >
+                    </div>
+            )
+        }
 
         while (card !== null) {
-        let id = card.val.value + " " + card.val.deck // calculate each cards spesific id
+        let id = card.val.value + " " + card.val.deck// calculate each cards spesific id
         const cardType = CardTypeFinder(card) // get correct image for card's value
 
         // pushed array contains each card div

@@ -12,7 +12,6 @@
     --king: url('../images/KS.png');
     --queen: url('../images/QS.png');
     --jack: url('../images/JS.png');
-    --blank: url('../images/blank.jpg');
 }
 
 .cards-col {
@@ -36,6 +35,14 @@
     overflow: hidden;
     position: absolute;
 } 
+
+.blank {
+    height: 17vh;
+    width: 6vw;
+    cursor: pointer;
+    border: 1px solid white;
+    position: absolute;
+}
 
 .card:hover{
     box-shadow: 2px 2px 2px #ffffff;
