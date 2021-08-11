@@ -55,3 +55,10 @@
     top: 70%;
     left: 85%;
 }
+
+.infobox {
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+    color: white;
+}

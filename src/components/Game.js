@@ -108,6 +108,7 @@ const CardCol = () => {
                        if (rank === 13) {
                            removeSelected(node) // remove whole completed deck
                            setComplete(complete + 1) // increase completed card value 
+                           alert("Congratulations You Have Completed a Deck")
                        }
                     }
                     else rank = 1 // reset rank value for new deck
@@ -116,7 +117,7 @@ const CardCol = () => {
             }
         }
         if (complete === 8) {
-            alert("congratulations")
+            alert("Congratulations WON !!")
         }
     }
     
@@ -227,6 +228,7 @@ const CardCol = () => {
     
     return (
         // wrap cards with column and inside the columns add new cards to get 4 * 6, 6 * 5 card matrix
+        <div>
         <div 
         className="cards">
             {
@@ -241,8 +243,17 @@ const CardCol = () => {
             }
             <div className = "card cardholder"
                 onClick = {clickGetCards} >
+                    
                 </div>
         </div>
+        <div className="infobox">
+        <div>
+            Decks in Reserve : { 5 - request } </div>
+            <div>
+            Completed Decks : { complete }
+            </div>
+            </div>
+            </div>
     )
 }
 
