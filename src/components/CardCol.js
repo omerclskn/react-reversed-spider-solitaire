@@ -18,7 +18,7 @@ const CardCol = () => {
     const [ request, setRequest ] = useState(0)
     const [ remCards, setRemCards ] = useState(card_rem)
     const [ complete, setComplete ] = useState(0)
-    const [_, forceUpdate] = useReducer((x) => x + 1, 0)
+    //const [_, forceUpdate] = useReducer((x) => x + 1, 0)
 
     const removeSelected = (remove) => {
      for (let index = 0; index < allCards.length; index++) {
@@ -101,8 +101,7 @@ const CardCol = () => {
                 let element = allCards[index];
                 if (element === null) {
                     element = createLinked(remCards.shift())
-                    console.log(element)
-                    console.log(allCards)
+                    allCards[index] = element
                 }
                 else {
                     while (element.next !== null) {
@@ -227,9 +226,9 @@ const CardCol = () => {
             onClick={handleClick(board)}
             style={{ 
             marginTop:(marginValue*20), 
-            ...( {background: (`var(${cardType})`), 
+            ...( board.val.show ? {background: (`var(${cardType})`), 
                                 backgroundSize: 'cover',
-                                backgroundRepeat: 'no-repeat'} ), }}  >
+                                backgroundRepeat: 'no-repeat'} : ""), }}  >
         </div>
         
         )
