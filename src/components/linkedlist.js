@@ -6,13 +6,14 @@ class Link {
     }
 }
 
+// building linked list structure, cards will have next and val keys val contains card property, next have next card's property
 function createLink(item){
     let node, temp;
-    for (let i = item.length - 1; i >= 0; i--) {
+    for (let index = item.length - 1; index >= 0; index--) {
         if(!node)
-            node = new Link(item[i]);
+            node = new Link(item[index]);
         else {
-            temp = new Link(item[i]);
+            temp = new Link(item[index]);
             temp.next = node;
             node = temp;
         }
@@ -29,7 +30,6 @@ for (let index = 0; index < array.length; index++) {
     linkedlist = [...linkedlist, createLink(element)]
 }
 
-//console.log(linkedlist)
 return linkedlist
    
 }

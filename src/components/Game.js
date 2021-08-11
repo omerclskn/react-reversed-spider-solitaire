@@ -1,9 +1,9 @@
-import React, {useState, useReducer} from 'react'
+import React, { useState } from 'react'
 import '../assets/css/card.css'
-import Card from './Card'
 import { useDrop } from 'react-dnd'
 import CardTypeFinder from './CardTypeFinder'
 import CardGenerator from '../CardGenerator'
+import { useDrag } from 'react-dnd'
 
 const CardCol = () => {
 
@@ -12,35 +12,33 @@ const CardCol = () => {
         card_rem
     } = CardGenerator()
 
-    const [allCards, setAllCards] = useState(card_initial)
-    const [ highlighted, setHighlighted ] = useState({})
-    const [ active, setActive ] = useState(false)
-    const [ request, setRequest ] = useState(0)
-    const [ remCards, setRemCards ] = useState(card_rem)
-    const [ complete, setComplete ] = useState(0)
+    const [allCards, setAllCards] = useState(card_initial) // contains all cards 
+    const [ highlighted, setHighlighted ] = useState({}) // keeps highlighted card, set when every first click to card
+    const [ active, setActive ] = useState(false) // active means we have highlighted card so if any click triggered need to control for placement
+    const [ request, setRequest ] = useState(0) // request keeps how many deck of cards will come from remaining cards
+    const [ remCards, setRemCards ] = useState(card_rem) // remaining cards
+    const [ complete, setComplete ] = useState(0) // complete keeps how many decks will completed
+
     //const [_, forceUpdate] = useReducer((x) => x + 1, 0)
 
     const removeSelected = (remove) => {
+        // remove selected item selected means after placement need to remove card from it's old position
      for (let index = 0; index < allCards.length; index++) {
             let element = allCards[index];
             let prev
             while (element !== null) {
-                    console.log(element)
 
                 if (element === remove) {
-                    prev===undefined ? allCards[index] = null : prev.next = null
-                    console.log(allCards)
+                    prev === undefined ? allCards[index] = null : prev.next = null // control for if column will not have any cards after placement
                 }
-
-                if (element !== null) {
                  prev = element
                  element = element.next
-                }
             }
         }   
     }
 
     const removeHighlight = (remove) => {
+        // remove highlighted card or cards
      for (let index = 0; index < allCards.length; index++) {
             let element = allCards[index];
             while (element !== null) {
@@ -54,6 +52,7 @@ const CardCol = () => {
     }
 
     const setCards = (item, next) => {
+        // set cards for new placement
         for (let index = 0; index < allCards.length; index++) {
             let element = allCards[index];
             while (element !== null) {
@@ -71,6 +70,7 @@ const CardCol = () => {
     }
 
     const setCardDisplay = () => {
+        // traverse every card and set displayness to true if it's first element 
         for (let index = 0; index < 10; index++) {
             let element = allCards[index]
             while(element !== null && element.next !== null) {
@@ -83,6 +83,7 @@ const CardCol = () => {
     }
 
     const createLinked = (element) => {
+        // remaining cards is array of objects but we need to transform every object to linked list object
         class Link {
             constructor(val) {
                 this.val = val
@@ -94,12 +95,13 @@ const CardCol = () => {
     }
 
     const clickGetCards = (e) => {
+        // check request bcs only 5 * 10 cards will distribute
         if (request < 5) {
             setRequest(request + 1)
-
+            // add new cards to placing cards
             for (let index = 0; index < allCards.length; index++) {
                 let element = allCards[index];
-                if (element === null) {
+                if (element === null) { // placing to empty columns
                     element = createLinked(remCards.shift())
                     allCards[index] = element
                 }
@@ -109,32 +111,33 @@ const CardCol = () => {
                     }
                     element.next = createLinked(remCards.shift())
                 }
-                setRemCards(remCards)
+                setRemCards(remCards) // update remaining cards
             }
-            setCardDisplay()
-        }else{
+            setCardDisplay() // set displayness
+        } else{
             alert("no card left")
         }
         
     }
 
     const checkComplete = () => {
+        // traverse in every card and if rank reaches 13 means sorting complete
         for (let index = 0; index < allCards.length; index++) {
             let element = allCards[index];
             let rank = 1
-            while (element !== null &&element.next !== null) {
+            while (element !== null && element.next !== null) {
                 if (element.val.show === true) {
                     if ((+element.next.val.value + 1) === +element.val.value) {
                         if (rank === 1) {
-                            var node = element
+                            var node = element // hold head node bcs if sorting complete, we will need to remove from that index
                         }
                        rank += 1
                        if (rank === 13) {
-                           removeSelected(node)
-                           setComplete(complete + 1)
+                           removeSelected(node) // remove whole completed deck
+                           setComplete(complete + 1) // increase completed card value 
                        }
                     }
-                    else rank = 1
+                    else rank = 1 // reset rank value for new deck
                 }
                 element = element.next
             }
@@ -145,17 +148,18 @@ const CardCol = () => {
     }
     
     const handleClick = (item) => (e) => {
-
+        /* control the active variable, if active is true it means this is second click so need to check replacing
+        but if false this means need to highlight or reject request */
         if (!active) {
         
-        let iter = 0;
-        let head = item;
+        let iter = 0; // how many cards will be select
+        let head = item; // need to hold head node because after control item's next, clicked item will be lost
         
         while(item.next !== null){
             
             let next_value = +item.next.val.value + 1;
             let cur_value = +item.val.value;
-
+            // check cards if in correct order
             if(next_value !== cur_value ) {
                 return false
             }
@@ -163,89 +167,81 @@ const CardCol = () => {
             item = item.next
             iter += 1
         }
-        setHighlighted(head)
+        setHighlighted(head) // highlight selected card
+        // if every item under clicked item, activate all
         for (let index = 0; index <= iter; index++) {
             head.val.active = true
             head = head.next
         }
-        setActive(true)
+        setActive(true) // we have activated item
         } else{
 
-            if (+item.val.value === +highlighted.val.value + 1) {
-            removeSelected(highlighted)
-            setCards(item, highlighted)
-            
+            if (+item.val.value === +highlighted.val.value + 1 || item === null) { // check clicked item is correct for placing highlighted
+            removeSelected(highlighted) // remove card from old place
+            setCards(item, highlighted) // set cards accordingly
+            // remove card's activation
             while (item !== null) {
                 item.val.active = false
                 item = item.next
             }
             }
             else{
+                // if not correct feedback to user and remove highlight
                 alert("you cannot my friend")
                 removeHighlight(highlighted)
             }
-            
-            setActive(false)
+            // reset variables for new processes, check if any completed decks, set card's display based on new indexes
+            setActive(false) 
             setHighlighted({})
             checkComplete()
             setCardDisplay()
         }
     }
 
-    //const [board, setBoard] = useState(card_col)
-    /*
-    const setDrop = (id) => {
-        console.log(id)
-        const dropped = board.filter((card) => id === (card.value + " " + card.deck))
-        setBoard([...board, dropped])
-    }*/
-
-    //console.log(card_col)
-    /*
-    const [{isOver}, drop] = useDrop(() => ({
-        accept: 'card',
-        drop: (item) => setDrop(item.id),
-        collect: (monitor) => ({
-            isOver: !!monitor.isOver(),
-        })
-    }));*/
-
-    const cardsPush = (board, index) => {
+    const cardsPush = (card, index) => {
         let pushed =[]
-        let marginValue = 0
-        while(board !== null){
-        let id = board.val.value + " " + board.val.deck
-        const cardType = CardTypeFinder(board)
+        let marginValue = 0 // for placing cards
+
+        while (card !== null) {
+        let id = card.val.value + " " + card.val.deck // calculate each cards spesific id
+        const cardType = CardTypeFinder(card) // get correct image for card's value
+
+        // pushed array contains each card div
         pushed.push(
-            //<Card item={board} id={id} key={id} onClick={handleClick(board)} />
             
-            <div 
-            //ref={drag}
+            <div
             id={id}
-            className={"card " + (board.val.active ? 'selectedCard' : '') } 
-            onClick={handleClick(board)}
+            className = {
+                "card " + (card.val.active ? 'selectedCard' : '') // if card's active property true, highlight to card
+            }
+            onClick = {
+                handleClick(card)
+            }
             style={{ 
             marginTop:(marginValue*20), 
-            ...( board.val.show ? {background: (`var(${cardType})`), 
+            ...(card.val.show ? { // if card's show property true, display the card 
+                    background: (`var(${cardType})`),
                                 backgroundSize: 'cover',
                                 backgroundRepeat: 'no-repeat'} : ""), }}  >
         </div>
         
         )
-        board = board.next
+        card = card.next
         marginValue += 1
     }
     return pushed
     }
     
     return (
-        // wrap cards with row and inside the rows add new cards to get 10 * 6 card matrix
+        // wrap cards with column and inside the columns add new cards to get 4 * 6, 6 * 5 card matrix
         <div 
         className="cards">
             {
-                allCards.map((board, index) => (
+                allCards.map((card, index) => (
                     <div className="cards-col"> 
-                        { cardsPush(board, index) }
+                        {
+                            cardsPush(card, index)
+                        }
                     </div>
                 ))
 

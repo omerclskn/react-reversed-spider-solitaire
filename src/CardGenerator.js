@@ -17,6 +17,20 @@ function shuffleArray(array) {
     return array
 }
 
+function splitArray(cards){
+    let card_split = []
+    let temp = 0
+    for (let index = 0; index < 10; index++) {
+        if (index < 4) {
+            card_split = [...card_split, [...cards.slice((index * 2) + 0, (index * 2) + 2)]]
+        } else {
+            card_split = [...card_split, [...cards.slice((index * 2) + 0 - temp, (index * 2) + 1 - temp)]]
+            temp += 1
+        }
+    }
+    return card_split
+}
+
 const CardGenerator = () => {
    const cardRank = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"];
 
@@ -28,48 +42,20 @@ for (let index = 0; index < 8; index++) {
     })
 }
 
-//console.log(cards)
-
 // shuffle array
-
 cards = shuffleArray(cards)
 
 // split array by index then card_split will be 10 array of arrays
-let card_split = []
-let temp = 0
-for (let index = 0; index < 10; index++) {
-    if(index < 4){
-        card_split = [...card_split, [...cards.slice((index*6)+0, (index*6)+6)]]
-    }
-    else {
-        card_split = [...card_split, [...cards.slice((index*6)+0-temp, (index*6)+5-temp)]]
-        temp += 1
-    }
-}
+let card_split = splitArray(cards)
 
-/* control
-for (let index = 0; index < 10; index++) {
-    for (let index2 = 0; index2 <= 6; index2++) {
-        if(index < 4){
-            if(cards[(index*6)+index2] === card_split[index][index2]){
-                console.log('true')
-            }
-        }
-        else{
-            if(index2 < 5){
-                if(cards[(index*6)+index2] === card_split[index][index2])
-                    console.log('true')
-            }
-        }
-    }
-}*/
-
+// then transform array to linked list 
 card_split = linkedlist(card_split)
 
 // split decks to initial and remaining, initials: 6 6 6 6 5 5 5 5 5 5, rems: 50, rems will be in card holder, initials will display on board
 const card_initial = card_split
 const card_rem = cards.filter((item, index) => (index >= 54))
 
+// first cards will display their value, others will close
 for (let index = 0; index < 10; index++) {
     let element = card_initial[index]
     while (element.next !== null) {
