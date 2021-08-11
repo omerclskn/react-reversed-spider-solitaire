@@ -1,6 +1,5 @@
 .board{
     background: url('../images/green_back.jpg');
+    background-size: cover;
     height: 100vh;
-    width: 100vw;
-    display: flex;
 }

@@ -16,18 +16,17 @@
 
 .cards-col {
     width: 100%;
-    margin-left: 25px;
+    margin-left: 10px;
     margin-top: 30px;
 }
 
 .cards {
     display: flex;
-    gap: 130px;
 }
 
 .card{
     background: url('../images/closed_card.png');
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     height: 17vh;
     width: 6vw;

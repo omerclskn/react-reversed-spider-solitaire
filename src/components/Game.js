@@ -211,10 +211,10 @@ const CardCol = () => {
                 handleClick(card)
             }
             style={{ 
-            marginTop:(marginValue*20), 
+            marginTop:(marginValue*25), 
             ...(card.val.show ? { // if card's show property true, display the card 
                     background: (`var(${cardType})`),
-                                backgroundSize: 'cover',
+                                backgroundSize: 'contain',
                                 backgroundRepeat: 'no-repeat'} : ""), }}  >
         </div>
         
