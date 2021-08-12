@@ -84,7 +84,8 @@ export const clickGetCards = (request, allCards, remCards) => {
                 element.next = createLinked(remCards.shift())
             }
         }
-        return {request, allCards, remCards}
+        setCardDisplay(allCards)
+        return {request, remCards}
     
 }
 
@@ -100,7 +101,7 @@ export const checkComplete = (allCards, complete) => {
                         var node = element // hold head node bcs if sorting complete, we will need to remove from that index
                     }
                     rank += 1
-                    if (rank === 3) {
+                    if (rank === 13) {
                         complete += 1
                         removeSelected(node, allCards)
                         alert("You Have Completed a Deck")
@@ -110,5 +111,51 @@ export const checkComplete = (allCards, complete) => {
             element = element.next
         }
     }
-    return {allCards, node, complete}
+    setCardDisplay(allCards)
+    return {node, complete}
+}
+
+export const firstClick = (item) => {
+    if (item !== null) {
+        let iter = 0; // how many cards will be select
+        let head = item; // need to hold head node because after control item's next, clicked item will be lost
+
+        while (item.next !== null) {
+
+            let next_value = +item.next.val.value + 1;
+            let cur_value = +item.val.value;
+            // check cards if in correct order
+            if (next_value !== cur_value || item.val.show === false) {
+                return false
+            }
+
+            item = item.next
+            iter += 1
+        }
+        let node = head
+
+        // if every item under clicked item have correct sort, activate all
+        for (let index = 0; index <= iter; index++) {
+            head.val.active = true
+            head = head.next
+        } 
+        return node
+    }   
+}
+
+export const secondClick = (item, highlighted, allCards, index) => {
+    if (item === null && +highlighted.val.value === 13) {
+        removeSelected(highlighted, allCards)
+        allCards[index] = highlighted
+    } else if (+item?.val.value === +highlighted.val.value + 1) { // check clicked item is correct for placing highlighted
+        removeSelected(highlighted, allCards) // remove card from old place
+
+        // add selected card to clicked card's next
+        item.next = highlighted
+    } else {
+        // if not correct feedback to user and remove highlight
+        item === null ? alert("Only King's can be placed to blank columns") : (item === highlighted || alert("Incorrect Placement"))
+    }
+    removeHighlight(highlighted)
+    setCardDisplay(allCards)
 }
