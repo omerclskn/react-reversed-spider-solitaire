@@ -1,0 +1,26 @@
+span{
+    color:white;
+    font-size: 26px;
+}
+
+.finish-wrap{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.play-again:hover{
+    border: 1px solid white;
+}
+
+.play-again{
+    position: fixed;
+    left: 50%;
+    top: 70%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.5);
+}

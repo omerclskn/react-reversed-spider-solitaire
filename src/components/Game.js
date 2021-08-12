@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import '../assets/css/card.css'
 import CardTypeFinder from './CardTypeFinder'
 import CardGenerator from '../CardGenerator'
+import FinishPage from './FinishPage'
 
-const CardCol = () => {
+const Game = () => {
 
     const {
         card_initial,
@@ -105,11 +106,11 @@ const CardCol = () => {
                             var node = element // hold head node bcs if sorting complete, we will need to remove from that index
                         }
                        rank += 1
-                       if (rank === 3) {
+                       if (rank === 13) {
                            removeSelected(node) // remove whole completed deck
                            setComplete(complete + 1) // increase completed card value 
                            setCardDisplay()
-                           alert("Congratulations You Have Completed a Deck")
+                           alert("You Have Completed a Deck")
                        }
                     }
                     else rank = 1 // reset rank value for new deck
@@ -248,6 +249,7 @@ const CardCol = () => {
     
     return (
         // wrap cards with column and inside the columns add new cards to get 4 * 6, 6 * 5 card matrix
+        complete < 8 ?
         <div>
             <div className="top-nav">
                 <div className = "card cardholder"
@@ -281,8 +283,8 @@ const CardCol = () => {
             Completed Decks : { complete }
             </div>
             </div>
-            </div>
+            </div> : <FinishPage />
     )
 }
 
-export default CardCol
+export default Game
