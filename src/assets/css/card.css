@@ -58,10 +58,23 @@
     display: flex;
     width: 100%;
     padding-top: 20px;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .blank-wrap{
     display: flex;
     gap: 20px;
+}
+
+.undo {
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    height: 25px;
+}
+
+.undo:hover {
+    border: 1px solid white;
 }

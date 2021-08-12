@@ -8,7 +8,12 @@ import { blankWrap,
         clickGetCards, 
         checkComplete,
         firstClick, 
-        secondClick} from './Gameplay'
+        secondClick,
+        removeSelected,
+        undoPlacement,
+        getPrev
+        }
+        from './Gameplay'
 
 const Game = () => {
 
@@ -17,14 +22,29 @@ const Game = () => {
         card_rem
     } = CardGenerator()
 
-    const [allCards, setAllCards] = useState(card_initial) // contains all cards 
+    const [ allCards, setAllCards ] = useState(card_initial) // contains all cards 
     const [ highlighted, setHighlighted ] = useState({}) // keeps highlighted card, set when every first click to card
     const [ active, setActive ] = useState(false) // active means we have highlighted card so if any click triggered need to control for placement
     const [ request, setRequest ] = useState(0) // request keeps how many deck of cards will come from remaining cards
     const [ remCards, setRemCards ] = useState(card_rem) // remaining cards
     const [ complete, setComplete ] = useState(0) // complete keeps how many decks will completed
+    const [ prevCards, setPrevCards ] = useState(null)
+    const [ canUndo, setCanUndo ] = useState(false)
 
     //const [_, forceUpdate] = useReducer((x) => x + 1, 0)
+
+    const undo = () => {
+
+        if (canUndo) {
+         removeSelected(prevCards.newHead, allCards)
+         undoPlacement(allCards, prevCards)
+         setPrevCards(null)
+         setCanUndo(false)
+        } else{
+            alert("You Cannot Undo in a Row and Exceptional Situations")
+        }
+
+    }
 
     const clickEvent = () => {
         if (request < 5) {
@@ -35,6 +55,7 @@ const Game = () => {
 
             setRequest(newRequest)
             setRemCards(newRemCards)
+            setCanUndo(false)
             CompleteControl()
         } else {
             alert("No Remaining Card Left")
@@ -43,7 +64,7 @@ const Game = () => {
 
     const CompleteControl = () => {
         const { complete: newComplete  } = checkComplete(allCards, complete)
-        
+        newComplete !== complete && setCanUndo(false)
         setComplete(newComplete) // increase completed card value 
     }
     
@@ -53,13 +74,21 @@ const Game = () => {
         if(!active) {
             if (firstClick(item)) {
                 const newHead = firstClick(item)
+                const prevShow = getPrev(allCards, newHead)
                 setActive(true)
                 setHighlighted(newHead)
+                setPrevCards(
+                    {index,
+                    newHead,
+                    removeIndex: null,
+                    status: prevShow}
+                )
             }
         } else{
-            secondClick(item, highlighted, allCards, index)
-
-            // reset variables for new processes, check if any completed decks, set card's display based on new indexes
+            setPrevCards({...prevCards, removeIndex: index})
+            secondClick(item, highlighted, allCards, index) && setCanUndo(true)
+            
+            // reset variables for new processes, check if any completed decks
             setActive(false) 
             setHighlighted({})
             CompleteControl()
@@ -90,7 +119,7 @@ const Game = () => {
             className = {
                 "card " + (card.val.active ? 'selectedCard' : '') // if card's active property true, highlight to card
             }
-            onClick = { handleClick(card) }
+            onClick = { handleClick(card, index) }
             style={{ 
             marginTop:(marginValue*25), 
             ...( card.val.show ? { // if card's show property true, display the card 
@@ -107,9 +136,14 @@ const Game = () => {
     
     return (
         // wrap cards with column and inside the columns add new cards to get 4 * 6, 6 * 5 card matrix
-        complete < 1 ?
+        complete < 2 ?
         <div>
             <div className="top-nav">
+
+                < div className = "undo"
+                onClick = {undo} >
+                    Undo </div>
+
                 <div className = "card cardholder"
                     onClick = { clickEvent } >
 
@@ -129,6 +163,7 @@ const Game = () => {
             
         </div>
         <InfoBox request={request} complete={complete}/>
+        
             </div> : <FinishPage />
     )
 }

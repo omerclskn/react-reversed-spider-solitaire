@@ -101,7 +101,7 @@ export const checkComplete = (allCards, complete) => {
                         var node = element // hold head node bcs if sorting complete, we will need to remove from that index
                     }
                     rank += 1
-                    if (rank === 3) {
+                    if (rank === 13) {
                         complete += 1
                         removeSelected(node, allCards)
                         alert("You Have Completed a Deck")
@@ -144,18 +144,52 @@ export const firstClick = (item) => {
 }
 
 export const secondClick = (item, highlighted, allCards, index) => {
+    let undoControl = false
     if (item === null && +highlighted.val.value === 13) {
         removeSelected(highlighted, allCards)
         allCards[index] = highlighted
+        
     } else if (+item?.val.value === +highlighted.val.value + 1) { // check clicked item is correct for placing highlighted
         removeSelected(highlighted, allCards) // remove card from old place
 
         // add selected card to clicked card's next
         item.next = highlighted
+        undoControl = true
+        
     } else {
         // if not correct feedback to user and remove highlight
         item === null ? alert("Only King's can be placed to blank columns") : (item === highlighted || alert("Incorrect Placement"))
+        
     }
     removeHighlight(highlighted)
     setCardDisplay(allCards)
+    return undoControl
+}
+
+export const getPrev = (allCards, find) => {
+    console.log(allCards)
+    for (let index = 0; index < allCards.length; index++) {
+        let element = allCards[index];
+
+        while (element.next!==null) {
+            if (element.next === find) {
+                 return element.val.show
+            }
+            element = element.next
+        }
+    }
+}
+
+export const undoPlacement = (allCards, prevCards) => {
+    for (let index = 0; index < allCards.length; index++) {
+        let element = allCards[index];
+        if (prevCards.index === index) {
+
+            while (element.next.next !== null) {
+                element = element.next
+            }
+            element.next.val.show = prevCards.status
+            element.next.next = prevCards.newHead
+        }
+    }
 }
