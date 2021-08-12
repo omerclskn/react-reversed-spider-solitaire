@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Fireworks } from 'fireworks-js/dist/react'
 import '../assets/css/finish.css'
 import Game from './Game'
-import Board from './Board'
 
 const FinishPage = () => {
 
