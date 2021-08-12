@@ -40,7 +40,6 @@
     width: 6vw;
     cursor: pointer;
     border: 1px solid white;
-    position: absolute;
 }
 
 .card:hover{
@@ -52,8 +51,7 @@
 }
 
 .cardholder {
-    top: 70%;
-    left: 85%;
+    position: relative;
 }
 
 .infobox {
@@ -61,4 +59,16 @@
     bottom: 0;
     padding: 20px;
     color: white;
+}
+
+.top-nav{
+    display: flex;
+    width: 100%;
+    padding-top: 20px;
+    justify-content: space-around;
+}
+
+.blank-wrap{
+    display: flex;
+    gap: 20px;
 }

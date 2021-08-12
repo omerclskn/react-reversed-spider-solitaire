@@ -105,9 +105,10 @@ const CardCol = () => {
                             var node = element // hold head node bcs if sorting complete, we will need to remove from that index
                         }
                        rank += 1
-                       if (rank === 13) {
+                       if (rank === 3) {
                            removeSelected(node) // remove whole completed deck
                            setComplete(complete + 1) // increase completed card value 
+                           setCardDisplay()
                            alert("Congratulations You Have Completed a Deck")
                        }
                     }
@@ -115,9 +116,6 @@ const CardCol = () => {
                 }
                 element = element.next
             }
-        }
-        if (complete === 8) {
-            alert("Congratulations WON !!")
         }
     }
     
@@ -181,6 +179,28 @@ const CardCol = () => {
         }
     }
 
+    const blankWrap = () => {
+        let blanks = []
+
+        for (let index = 0; index < 8; index++) {
+            blanks.push(
+                <div
+                className = "blank" 
+                style = {
+                    {
+                        ...(complete > index ? { // if card's show property true, display the card 
+                            background: (`var(--as)`),
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat'
+                        } : "")
+                    }
+                } >
+                    </div>
+            )
+        }
+        return blanks
+    }
+
     const cardsPush = (card, index) => {
         let pushed =[]
         let marginValue = 0 // for placing cards
@@ -229,6 +249,17 @@ const CardCol = () => {
     return (
         // wrap cards with column and inside the columns add new cards to get 4 * 6, 6 * 5 card matrix
         <div>
+            <div className="top-nav">
+                <div className = "card cardholder"
+                onClick = {
+                        clickGetCards
+                    } >
+
+                    </div>
+                    <div className="blank-wrap">
+                        {blankWrap()}
+                    </div>
+            </div>
         <div 
         className="cards">
             {
@@ -241,10 +272,7 @@ const CardCol = () => {
                 ))
 
             }
-            <div className = "card cardholder"
-                onClick = {clickGetCards} >
-                    
-                </div>
+            
         </div>
         <div className="infobox">
         <div>
