@@ -11,7 +11,9 @@ import { blankWrap,
         secondClick,
         removeSelected,
         undoPlacement,
-        getPrev
+        getPrev,
+        getHint,
+        removeHighlight
         }
         from './Gameplay'
 
@@ -33,6 +35,20 @@ const Game = () => {
 
     //const [_, forceUpdate] = useReducer((x) => x + 1, 0)
 
+    const hint = () => {
+        if (active) {
+            if (getHint(allCards, highlighted)) {
+                setCanUndo(false)
+            } else{
+                alert("No Hint Found For This Card")
+                removeHighlight(highlighted)
+            }
+            setActive(false)
+        } else{
+            alert("You need to click at least one card for hint")
+        }
+    }
+
     const undo = () => {
 
         if (canUndo) {
@@ -41,7 +57,9 @@ const Game = () => {
          setPrevCards(null)
          setCanUndo(false)
         } else{
-            alert("You Cannot Undo in a Row and Exceptional Situations")
+            alert("You Cannot Undo in a Row, After distribute new cards, after get hint")
+            active && removeHighlight(highlighted)
+            setActive(false)
         }
 
     }
@@ -143,6 +161,12 @@ const Game = () => {
                 < div className = "undo"
                 onClick = {undo} >
                     Undo </div>
+
+                    < div className = "hint"
+                    onClick = {
+                            hint
+                        } >
+                        Hint </div>
 
                 <div className = "card cardholder"
                     onClick = { clickEvent } >

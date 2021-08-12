@@ -171,6 +171,10 @@ export const getPrev = (allCards, find) => {
     for (let index = 0; index < allCards.length; index++) {
         let element = allCards[index];
 
+        if (element === null) {
+            return true
+        }
+
         while (element.next!==null) {
             if (element.next === find) {
                  return element.val.show
@@ -185,11 +189,34 @@ export const undoPlacement = (allCards, prevCards) => {
         let element = allCards[index];
         if (prevCards.index === index) {
 
-            while (element.next.next !== null) {
-                element = element.next
+            if (element === null) {
+                allCards[index] = prevCards.newHead
+            } else{
+                while (element.next !== null) {
+                    element = element.next
+                }
+                element.val.show = prevCards.status
+                element.next = prevCards.newHead
             }
-            element.next.val.show = prevCards.status
-            element.next.next = prevCards.newHead
         }
     }
+}
+
+export const getHint = (allCards, highlighted) => {
+
+    for (let index = 0; index < allCards.length; index++) {
+        let element = allCards[index];
+        while (element !== null) {
+            if ((+element.val.value) === (+highlighted.val.value + 1) && element.val.show === true  && element.next === null) {
+                removeSelected(highlighted, allCards)
+                element.next = highlighted
+                removeHighlight(highlighted)
+                setCardDisplay(allCards)
+
+                return true
+            }
+            element = element.next
+        }
+    }
+    return false
 }

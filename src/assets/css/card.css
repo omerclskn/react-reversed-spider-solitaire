@@ -78,3 +78,16 @@
 .undo:hover {
     border: 1px solid white;
 }
+
+.hint {
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    height: 25px;
+}
+
+.hint:hover {
+    border: 1px solid white;
+}
