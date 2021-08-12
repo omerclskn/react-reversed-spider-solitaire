@@ -101,7 +101,7 @@ export const checkComplete = (allCards, complete) => {
                         var node = element // hold head node bcs if sorting complete, we will need to remove from that index
                     }
                     rank += 1
-                    if (rank === 13) {
+                    if (rank === 3) {
                         complete += 1
                         removeSelected(node, allCards)
                         alert("You Have Completed a Deck")

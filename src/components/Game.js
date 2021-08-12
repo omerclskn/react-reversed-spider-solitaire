@@ -57,7 +57,6 @@ const Game = () => {
                 setHighlighted(newHead)
             }
         } else{
-
             secondClick(item, highlighted, allCards, index)
 
             // reset variables for new processes, check if any completed decks, set card's display based on new indexes
@@ -108,7 +107,7 @@ const Game = () => {
     
     return (
         // wrap cards with column and inside the columns add new cards to get 4 * 6, 6 * 5 card matrix
-        complete < 8 ?
+        complete < 1 ?
         <div>
             <div className="top-nav">
                 <div className = "card cardholder"

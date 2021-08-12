@@ -54,13 +54,6 @@
     position: relative;
 }
 
-.infobox {
-    position: absolute;
-    bottom: 0;
-    padding: 20px;
-    color: white;
-}
-
 .top-nav{
     display: flex;
     width: 100%;

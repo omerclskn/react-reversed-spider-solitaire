@@ -1,0 +1,15 @@
+.timer{
+    display: flex;
+}
+
+.timer > :first-child{
+    margin-right: 15px;
+}
+
+.timer img{
+    width: 30px;
+}
+
+.timer > :last-child{
+    font-size: 24px;
+}
