@@ -39,7 +39,7 @@ const Game = () => {
     const clickHint = () => {
         if (active) {
             if (getHint(allCards, highlighted)) {
-                setCanUndo(false)
+                setCanUndo(true)
             } else{
                 alert("No Hint Found For This Card")
                 removeHighlight(highlighted)
@@ -65,7 +65,7 @@ const Game = () => {
             }
             setCanUndo(false)
         } else{
-            alert("You Cannot Undo in a Row and After Get Hint")
+            alert("You Cannot Undo in a Row")
             active && removeHighlight(highlighted)
             setActive(false)
         }
