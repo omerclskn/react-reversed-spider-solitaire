@@ -13,7 +13,8 @@ import {
         getPrev,
         getHint,
         removeHighlight,
-        cardsPush
+        cardsPush,
+        undoPlacementDist
         }
         from './Gameplay'
 import { Redirect } from 'react-router-dom'
@@ -33,6 +34,7 @@ const Game = () => {
     const [ complete, setComplete ] = useState(0) // complete keeps how many decks will completed
     const [ prevCards, setPrevCards ] = useState(null)
     const [ canUndo, setCanUndo ] = useState(false)
+    const [ undoDistribute, setUndoDistribute ] = useState(false)
 
     const clickHint = () => {
         if (active) {
@@ -51,12 +53,19 @@ const Game = () => {
     const clickUndo = () => {
 
         if (canUndo) {
-         removeSelected(prevCards.newHead, allCards)
-         undoPlacement(allCards, prevCards)
-         setPrevCards(null)
-         setCanUndo(false)
+            if (undoDistribute) {
+                const prevRemCards = undoPlacementDist(allCards)
+                setRemCards([...prevRemCards, ...remCards])
+                setUndoDistribute(false)
+            }
+            else{
+                removeSelected(prevCards.newHead, allCards)
+                undoPlacement(allCards, prevCards)
+                setPrevCards(null)
+            }
+            setCanUndo(false)
         } else{
-            alert("You Cannot Undo in a Row, After distribute new cards, after get hint")
+            alert("You Cannot Undo in a Row and After Get Hint")
             active && removeHighlight(highlighted)
             setActive(false)
         }
@@ -70,7 +79,8 @@ const Game = () => {
 
             setRequest(newRequest)
             setRemCards(newRemCards)
-            setCanUndo(false)
+            setCanUndo(true)
+            setUndoDistribute(true)
             CompleteControl()
     }
 
@@ -89,6 +99,7 @@ const Game = () => {
                     removeIndex: null,
                     status: prevShow
                 })
+                setCanUndo(false)
             }
         } else {
             setPrevCards({

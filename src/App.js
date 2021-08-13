@@ -1,5 +1,5 @@
 import React from 'react';
-import Board from './components/Board'
+import Game from './components/Game'
 import { Route, Router } from 'react-router-dom'
 import FinishPage from './components/FinishPage'
 import history from './components/history';
@@ -10,7 +10,7 @@ function App() {
 
     <Router history={history}>
 
-      <Route exact path="/" component={Board} />
+      <Route exact path="/" component={Game} />
 
       <Route path = "/finish" component={FinishPage} />
 

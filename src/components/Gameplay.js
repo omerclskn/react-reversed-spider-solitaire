@@ -2,6 +2,7 @@ import '../assets/css/card.css'
 import BlankCard from './BlankCard'
 import Card from './Card'
 import BlankColumnCard from './BlankColumnCard'
+import {card} from '../CardGenerator'
 
 export const blankWrap = (complete) => {
     let blanks = []
@@ -236,4 +237,20 @@ export const cardsPush = (card, index, clickCard) => {
         marginValue += 1
     }
     return pushed
+}
+
+export const undoPlacementDist = (allCards) => {
+    let prevRemCards = []
+    for (let index = 0; index < allCards.length; index++) {
+        let element = allCards[index];
+
+        while (element.next!==null) {
+            element = element.next
+        }
+        
+        prevRemCards.push(new card(element.val.deck, element.val.value, false, false))
+        removeSelected(element, allCards)
+    }
+    console.log(prevRemCards)
+    return prevRemCards
 }

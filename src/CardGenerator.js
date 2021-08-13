@@ -1,6 +1,6 @@
 import linkedlist from './components/linkedlist'
 
-class card {
+export class card {
     constructor(deck, value, show, active){
         this.deck = deck;
         this.value = value;
