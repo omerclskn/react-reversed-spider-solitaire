@@ -1,15 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Fireworks } from 'fireworks-js/dist/react'
 import '../assets/css/finish.css'
-import Game from './Game'
+import { Link } from 'react-router-dom'
 
 const FinishPage = () => {
-
-    const [game, setGame] = useState(false)
-
-    const handleClick = () => {
-        setGame(true)
-    }
 
     const options = {
         speed: 15
@@ -25,7 +19,6 @@ const FinishPage = () => {
     }
 
     return (
-        !game ?
     <div className="finish-wrap">
         
         <Fireworks options = {
@@ -38,13 +31,14 @@ const FinishPage = () => {
         <span>
             Congratulations You WON!!
             </span>
-            < div
-            className = "btn play-again"
-            onClick = { handleClick } >
+            <Link to="/">
+            <div
+            className = "btn play-again">
                 Play Again </div>
+            </ Link>
         </Fireworks>
 
-    </div> : <Game />
+    </div>
     )
 }
 

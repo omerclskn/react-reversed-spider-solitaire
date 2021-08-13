@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import '../assets/css/card.css'
 import CardGenerator from '../CardGenerator'
-import FinishPage from './FinishPage'
 import InfoBox from './InfoBox'
 import TopNav from './TopNav'
 import {  
@@ -17,6 +16,7 @@ import {
         cardsPush
         }
         from './Gameplay'
+import { Redirect } from 'react-router-dom'
 
 const Game = () => {
 
@@ -116,7 +116,7 @@ const Game = () => {
     
     return (
         // wrap cards with column and inside the columns add new cards to get 4 * 6, 6 * 5 card matrix
-        complete < 2 ?
+        complete < 8 ?
         <div>
 
             <TopNav clickUndo={clickUndo} clickHint={clickHint} clickRemCards={clickRemCards} complete={complete} />
@@ -133,7 +133,8 @@ const Game = () => {
 
             <InfoBox request={request} complete={complete}/>
         
-        </div> : <FinishPage />
+        </div> : <Redirect to="/finish" />
+ 
     )
 }
 

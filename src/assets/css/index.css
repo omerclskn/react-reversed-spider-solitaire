@@ -26,3 +26,7 @@ code {
 .btn:hover {
   border: 1px solid white;
 }
+
+a{
+  text-decoration: none;
+}

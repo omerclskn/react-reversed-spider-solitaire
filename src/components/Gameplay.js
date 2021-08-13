@@ -90,7 +90,9 @@ export const checkComplete = (allCards, complete) => {
         let rank = 1
         while (element !== null && element.next !== null) {
             if (element.val.show === true) {
-                if ((+element.next.val.value + 1) === +element.val.value) {
+                let next_value = +element.next.val.value + 1;
+                let cur_value = +element.val.value;
+                if (next_value === cur_value) {
                     if (rank === 1) {
                         var node = element // hold head node bcs if sorting complete, we will need to remove from that index
                     }
