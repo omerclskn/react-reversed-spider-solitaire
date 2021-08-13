@@ -1,20 +1,14 @@
 import '../assets/css/card.css'
+import BlankCard from './BlankCard'
+import Card from './Card'
+import BlankColumnCard from './BlankColumnCard'
 
 export const blankWrap = (complete) => {
     let blanks = []
 
     for (let index = 0; index < 8; index++) {
-        blanks.push( <div className = "blank"
-            style = {
-                {
-                    ...(complete > index ? { // if card's show property true, display the card 
-                        background: (`var(--as)`),
-                        backgroundSize: 'contain',
-                        backgroundRepeat: 'no-repeat'
-                    } : "")
-                }
-            } >
-            </div>
+        blanks.push( 
+        <BlankCard complete={complete} index={index} />
         )
     }
     return blanks
@@ -219,4 +213,25 @@ export const getHint = (allCards, highlighted) => {
         }
     }
     return false
+}
+
+export const cardsPush = (card, index, clickCard) => {
+        let pushed =[]
+        if (card === null) {
+            pushed.push(
+                <BlankColumnCard clickCard={clickCard} card={card} index={index} />
+            )
+        }
+
+        let marginValue = 0 // for placing cards
+        while (card !== null) {
+
+        // pushed array contains each card 
+        pushed.push(
+            <Card marginValue={marginValue} clickCard={clickCard} index={index} card={card} />
+        )
+        card = card.next
+        marginValue += 1
+    }
+    return pushed
 }

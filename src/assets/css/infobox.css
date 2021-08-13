@@ -8,15 +8,3 @@
     justify-content: space-around;
     align-items: center;
 }
-
-.restart {
-    padding: 10px;
-    cursor: pointer;
-    color: white;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.restart:hover {
-    border: 1px solid white;
-}

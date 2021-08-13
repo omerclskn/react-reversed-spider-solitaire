@@ -19,7 +19,7 @@ const InfoBox = ({request, complete}) => {
                 <Timer />
             </div>
 
-            <div className = "restart"
+            <div className = "btn"
                 onClick={clickEvent} > Restart Game 
             </div>
         </div>

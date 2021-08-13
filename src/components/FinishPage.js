@@ -39,7 +39,7 @@ const FinishPage = () => {
             Congratulations You WON!!
             </span>
             < div
-            className = "play-again"
+            className = "btn play-again"
             onClick = { handleClick } >
                 Play Again </div>
         </Fireworks>

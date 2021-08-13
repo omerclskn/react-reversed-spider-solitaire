@@ -1,27 +1,13 @@
-:root{
-    --as: url('../images/AS.png');
-    --two: url('../images/2S.png');
-    --three: url('../images/3S.png');
-    --four: url('../images/4S.png');
-    --five: url('../images/5S.png');
-    --six: url('../images/6S.png');
-    --seven: url('../images/7S.png');
-    --eight: url('../images/8S.png');
-    --nine: url('../images/9S.png');
-    --ten: url('../images/0S.png');
-    --king: url('../images/KS.png');
-    --queen: url('../images/QS.png');
-    --jack: url('../images/JS.png');
+@import url(cardVar.css);
+
+.cards {
+    display: flex;
 }
 
 .cards-col {
     width: 100%;
     margin-left: 10px;
     margin-top: 30px;
-}
-
-.cards {
-    display: flex;
 }
 
 .card{
@@ -33,13 +19,6 @@
     cursor: pointer;
     overflow: hidden;
     position: absolute;
-} 
-
-.blank {
-    height: 17vh;
-    width: 6vw;
-    cursor: pointer;
-    border: 1px solid white;
 }
 
 .card:hover{
@@ -50,44 +29,9 @@
     border: 2px solid red
 }
 
-.cardholder {
-    position: relative;
-}
-
-.top-nav{
-    display: flex;
-    width: 100%;
-    padding-top: 20px;
-    justify-content: space-evenly;
-}
-
-.blank-wrap{
-    display: flex;
-    gap: 20px;
-}
-
-.undo {
-    padding: 10px;
+.blank {
+    height: 17vh;
+    width: 6vw;
     cursor: pointer;
-    color: white;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    height: 25px;
-}
-
-.undo:hover {
-    border: 1px solid white;
-}
-
-.hint {
-    padding: 10px;
-    cursor: pointer;
-    color: white;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    height: 25px;
-}
-
-.hint:hover {
     border: 1px solid white;
 }

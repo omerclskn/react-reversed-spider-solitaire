@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import '../assets/css/card.css'
-import CardTypeFinder from './CardTypeFinder'
 import CardGenerator from '../CardGenerator'
 import FinishPage from './FinishPage'
 import InfoBox from './InfoBox'
-import { blankWrap, 
+import TopNav from './TopNav'
+import {  
         clickGetCards, 
         checkComplete,
         firstClick, 
@@ -13,7 +13,8 @@ import { blankWrap,
         undoPlacement,
         getPrev,
         getHint,
-        removeHighlight
+        removeHighlight,
+        cardsPush
         }
         from './Gameplay'
 
@@ -33,9 +34,7 @@ const Game = () => {
     const [ prevCards, setPrevCards ] = useState(null)
     const [ canUndo, setCanUndo ] = useState(false)
 
-    //const [_, forceUpdate] = useReducer((x) => x + 1, 0)
-
-    const hint = () => {
+    const clickHint = () => {
         if (active) {
             if (getHint(allCards, highlighted)) {
                 setCanUndo(false)
@@ -49,7 +48,7 @@ const Game = () => {
         }
     }
 
-    const undo = () => {
+    const clickUndo = () => {
 
         if (canUndo) {
          removeSelected(prevCards.newHead, allCards)
@@ -61,10 +60,9 @@ const Game = () => {
             active && removeHighlight(highlighted)
             setActive(false)
         }
-
     }
 
-    const clickEvent = () => {
+    const clickRemCards = () => {
         if (request < 5) {
             const {
                 request: newRequest,
@@ -80,115 +78,62 @@ const Game = () => {
         }
     }
 
+    const clickCard = (item, index) => (e) => {
+        /* control the active variable, if active is true it means this is second click so need to check replacing
+        but if false this means need to highlight or reject request */
+        if (!active) {
+            if (firstClick(item)) {
+                const newHead = firstClick(item)
+                const prevShow = getPrev(allCards, newHead)
+                setActive(true)
+                setHighlighted(newHead)
+                setPrevCards({
+                    index,
+                    newHead,
+                    removeIndex: null,
+                    status: prevShow
+                })
+            }
+        } else {
+            setPrevCards({
+                ...prevCards,
+                removeIndex: index
+            })
+            secondClick(item, highlighted, allCards, index) && setCanUndo(true)
+
+            // reset variables for new processes, check if any completed decks
+            setActive(false)
+            setHighlighted({})
+            CompleteControl()
+        }
+    }
+
     const CompleteControl = () => {
         const { complete: newComplete  } = checkComplete(allCards, complete)
         newComplete !== complete && setCanUndo(false)
         setComplete(newComplete) // increase completed card value 
     }
     
-    const handleClick = (item, index) => (e) => {
-        /* control the active variable, if active is true it means this is second click so need to check replacing
-        but if false this means need to highlight or reject request */
-        if(!active) {
-            if (firstClick(item)) {
-                const newHead = firstClick(item)
-                const prevShow = getPrev(allCards, newHead)
-                setActive(true)
-                setHighlighted(newHead)
-                setPrevCards(
-                    {index,
-                    newHead,
-                    removeIndex: null,
-                    status: prevShow}
-                )
-            }
-        } else{
-            setPrevCards({...prevCards, removeIndex: index})
-            secondClick(item, highlighted, allCards, index) && setCanUndo(true)
-            
-            // reset variables for new processes, check if any completed decks
-            setActive(false) 
-            setHighlighted({})
-            CompleteControl()
-        }
-    }
-
-    const cardsPush = (card, index) => {
-        let pushed =[]
-        let marginValue = 0 // for placing cards
-        if (card === null) {
-            pushed.push(
-                <div
-                id = {0}
-                className={"blank"}
-                onClick = { handleClick(card, index) } >
-                    </div>
-            )
-        }
-
-        while (card !== null) {
-        let id = card.val.value + " " + card.val.deck// calculate each cards spesific id
-        const cardType = CardTypeFinder(card) // get correct image for card's value
-
-        // pushed array contains each card div
-        pushed.push(
-            <div
-            id={id}
-            className = {
-                "card " + (card.val.active ? 'selectedCard' : '') // if card's active property true, highlight to card
-            }
-            onClick = { handleClick(card, index) }
-            style={{ 
-            marginTop:(marginValue*25), 
-            ...( card.val.show ? { // if card's show property true, display the card 
-                    background: (`var(${cardType})`),
-                                backgroundSize: 'contain',
-                                backgroundRepeat: 'no-repeat'} : ""), }}  >
-        </div>
-        )
-        card = card.next
-        marginValue += 1
-    }
-    return pushed
-    }
-    
     return (
         // wrap cards with column and inside the columns add new cards to get 4 * 6, 6 * 5 card matrix
         complete < 2 ?
         <div>
-            <div className="top-nav">
 
-                < div className = "undo"
-                onClick = {undo} >
-                    Undo </div>
+            <TopNav clickUndo={clickUndo} clickHint={clickHint} clickRemCards={clickRemCards} complete={complete} />
 
-                    < div className = "hint"
-                    onClick = {
-                            hint
-                        } >
-                        Hint </div>
-
-                <div className = "card cardholder"
-                    onClick = { clickEvent } >
-
-                    </div>
-                    <div className="blank-wrap">
-                        { blankWrap(complete) }
-                    </div>
+            <div 
+            className="cards">
+                { allCards.map((card, index) => (
+                        <div className="cards-col"> 
+                            { cardsPush(card, index, clickCard) }
+                        </div>
+                    ))
+                }
             </div>
-        <div 
-        className="cards">
-            { allCards.map((card, index) => (
-                    <div className="cards-col"> 
-                        { cardsPush(card, index) }
-                    </div>
-                ))
-            }
-            
-        </div>
-        <InfoBox request={request} complete={complete}/>
+
+            <InfoBox request={request} complete={complete}/>
         
-            </div> : <FinishPage />
+        </div> : <FinishPage />
     )
 }
 
