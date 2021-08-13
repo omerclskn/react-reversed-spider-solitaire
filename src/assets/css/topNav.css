@@ -6,7 +6,11 @@
 }
 
 .cardholder {
-    position: relative;
+    position: absolute;
+}
+
+.cardholders{
+    width: 15%;
 }
 
 .blank-wrap {

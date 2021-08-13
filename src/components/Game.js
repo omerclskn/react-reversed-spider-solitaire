@@ -63,7 +63,6 @@ const Game = () => {
     }
 
     const clickRemCards = () => {
-        if (request < 5) {
             const {
                 request: newRequest,
                 remCards: newRemCards
@@ -73,9 +72,6 @@ const Game = () => {
             setRemCards(newRemCards)
             setCanUndo(false)
             CompleteControl()
-        } else {
-            alert("No Remaining Card Left")
-        }
     }
 
     const clickCard = (item, index) => (e) => {
@@ -119,7 +115,7 @@ const Game = () => {
         complete < 8 ?
         <div>
 
-            <TopNav clickUndo={clickUndo} clickHint={clickHint} clickRemCards={clickRemCards} complete={complete} />
+            <TopNav remCards={remCards} clickUndo={clickUndo} clickHint={clickHint} clickRemCards={clickRemCards} complete={complete} />
 
             <div 
             className="cards">

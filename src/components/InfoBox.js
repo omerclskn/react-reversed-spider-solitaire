@@ -2,7 +2,7 @@ import React from 'react'
 import '../assets/css/infobox.css'
 import Timer from './Timer'
 
-const InfoBox = ({request, complete}) => {
+const InfoBox = ({complete}) => {
 
     const clickEvent = () => {
         window.location.reload()
@@ -11,7 +11,6 @@ const InfoBox = ({request, complete}) => {
     return (
         <div className="infobox">
             <div>
-                <div> Decks in Reserve: { 5 - request } </div> 
                 <div> Completed Decks: { complete } </div> 
             </div>
 

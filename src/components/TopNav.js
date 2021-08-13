@@ -4,10 +4,26 @@ import {
 } from './Gameplay'
 import '../assets/css/topNav.css'
 
-const TopNav = ({clickUndo, clickHint, clickRemCards, complete}) => {
+const cardholders = (clickRemCards, remCardCount) => {
+    let marginValue = 0
+    let cardHolderPush = []
+    for (let index = 0; index < remCardCount; index++) {
+        cardHolderPush.push(
+            <div 
+            style={{marginLeft: marginValue*30}}
+            className = "card cardholder"
+            onClick = { clickRemCards } >
+        </div>
+        )
+        marginValue += 1
+    }
+    return cardHolderPush
+}
+
+const TopNav = ({remCards ,clickUndo, clickHint, clickRemCards, complete}) => {
     return ( 
     <div className="top-nav">
-
+        
         <div className = "btn"
             onClick = { clickUndo } > Undo 
         </div>
@@ -16,8 +32,8 @@ const TopNav = ({clickUndo, clickHint, clickRemCards, complete}) => {
             onClick = { clickHint } > Hint 
         </div>
 
-        <div className = "card cardholder"
-            onClick = { clickRemCards } >
+        <div className="cardholders">
+        {cardholders(clickRemCards, remCards.length/10)}
         </div>
 
         <div className = "blank-wrap" > 
