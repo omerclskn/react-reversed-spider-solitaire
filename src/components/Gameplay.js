@@ -3,6 +3,7 @@ import BlankCard from './BlankCard'
 import Card from './Card'
 import BlankColumnCard from './BlankColumnCard'
 import {card} from '../CardGenerator'
+import applauseAudio from '../assets/sound/applause.mp3'
 
 export const blankWrap = (complete) => {
     let blanks = []
@@ -99,6 +100,7 @@ export const checkComplete = (allCards, complete) => {
                     }
                     rank += 1
                     if (rank === 13) {
+                        new Audio(applauseAudio).play()
                         complete += 1
                         removeSelected(node, allCards)
                         alert("You Have Completed a Deck")

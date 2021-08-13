@@ -18,6 +18,8 @@ import {
         }
         from './Gameplay'
 import { Redirect } from 'react-router-dom'
+import shuffleAudio from '../assets/sound/shuffle.mp3'
+import flickAudio from '../assets/sound/flick.mp3'
 
 const Game = () => {
 
@@ -72,6 +74,7 @@ const Game = () => {
     }
 
     const clickRemCards = () => {
+        new Audio(shuffleAudio).play()
             const {
                 request: newRequest,
                 remCards: newRemCards
@@ -102,6 +105,7 @@ const Game = () => {
                 setCanUndo(false)
             }
         } else {
+            new Audio(flickAudio).play()
             setPrevCards({
                 ...prevCards,
                 removeIndex: index
