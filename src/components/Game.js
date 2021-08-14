@@ -116,6 +116,7 @@ const Game = () => {
             setActive(false)
             setHighlighted({})
             CompleteControl()
+            setUndoDistribute(false)
         }
     }
 
