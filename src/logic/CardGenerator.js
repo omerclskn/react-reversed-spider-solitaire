@@ -9,15 +9,27 @@ export class card {
     }
 }
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+export const generateCards = () => {
+    const cardRank = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"];
+
+    let cards = []
+    for (let index = 0; index < 8; index++) {
+        cardRank.forEach((item) => {
+            cards.push(new card(index, item, false, false))
+        })
+    }
+    return cards
+}
+
+export const shuffleArray = (array) => {
+    for (let index = array.length - 1; index > 0; index--) {
+        const j = Math.floor(Math.random() * (index + 1));
+        [array[index], array[j]] = [array[j], array[index]];
     }
     return array
 }
 
-function splitArray(cards){
+export const splitArray = (cards) => {
     let card_split = []
     let temp = 0
     for (let index = 0; index < 10; index++) {
@@ -31,16 +43,24 @@ function splitArray(cards){
     return card_split
 }
 
-const CardGenerator = () => {
-   const cardRank = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"];
-
-let cards = []
-// generate 8 deck of cards
-for (let index = 0; index < 8; index++) {
-    cardRank.forEach((item) => {
-        cards.push(new card(index, item, false, false))
-    })
+export const getRemainingCards = (array) => {
+    return array.filter((item, index) => (index >= 54))
 }
+
+export const DisplayLastCards = (card_initial) => {
+    for (let index = 0; index < 10; index++) {
+        let element = card_initial[index]
+        while (element.next !== null) {
+            element = element.next
+        }
+        element.val.show = true;
+    }
+}
+
+const CardGenerator = () => {
+
+// generate 8 deck of cards
+let cards = generateCards()
 
 // shuffle array
 cards = shuffleArray(cards)
@@ -53,16 +73,10 @@ card_split = linkedlist(card_split)
 
 // split decks to initial and remaining, initials: 6 6 6 6 5 5 5 5 5 5, rems: 50, rems will be in card holder, initials will display on board
 const card_initial = card_split
-const card_rem = cards.filter((item, index) => (index >= 54))
+const card_rem = getRemainingCards(cards)
 
-// first cards will display their value, others will close
-for (let index = 0; index < 10; index++) {
-    let element = card_initial[index]
-    while (element.next !== null) {
-        element = element.next
-    }
-    element.val.show = true;
-}
+// last cards will display their value, others will close
+DisplayLastCards(card_initial)
 
 return {card_initial, card_rem}
 }

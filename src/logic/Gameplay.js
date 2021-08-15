@@ -1,21 +1,7 @@
 import '../assets/css/card.css'
-import BlankCard from '../components/Card/BlankCard'
-import Card from '../components/Card/Card'
-import BlankColumnCard from '../components/Card/BlankColumnCard'
-import {card} from './CardGenerator'
+import { card } from './CardGenerator'
 import applauseAudio from '../assets/sound/applause.mp3'
 import wrongAudio from '../assets/sound/wrong.mp3'
-
-export const blankWrap = (complete) => {
-    let blanks = []
-
-    for (let index = 0; index < 8; index++) {
-        blanks.push( 
-        <BlankCard complete={complete} index={index} />
-        )
-    }
-    return blanks
-}
 
 export const createLinked = (element) => {
     // remaining cards is array of objects but we need to transform every object to linked list object
@@ -29,15 +15,15 @@ export const createLinked = (element) => {
 }
 
 export const removeHighlight = (remove) => {
-    // remove highlighted card or cards
+    // remove card or cards activation/selected/red bordered
     while (remove !== null) {
         remove.val.active = false
         remove = remove.next
     }
 }
 
-export const removeSelected = (remove, allCards) => {
-    // remove selected item selected means after placement need to remove card from it's old position
+export const removeCardOldPlace = (remove, allCards) => {
+    // remove card from it's old place
     for (let index = 0; index < allCards.length; index++) {
         let element = allCards[index];
         let prev
@@ -54,14 +40,14 @@ export const removeSelected = (remove, allCards) => {
 
 export const setCardDisplay = (allCards) => {
     // traverse every card and set displayness to true if it's first element 
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < allCards.length; index++) {
         let element = allCards[index]
-        while (element !== null && element.next !== null) {
-            element = element.next
-        }
         if (element !== null) {
+            while (element.next !== null) {
+                element = element.next
+            }
             element.val.show = true;
-        }
+        }   
     }
 }
 
@@ -86,7 +72,7 @@ export const clickGetCards = (request, allCards, remCards) => {
     
 }
 
-export const checkComplete = (allCards, complete) => {
+export const checkComplete = (allCards, complete, test) => {
     // traverse in every card and if rank reaches 13 means sorting complete
     for (let index = 0; index < allCards.length; index++) {
         let element = allCards[index];
@@ -100,11 +86,11 @@ export const checkComplete = (allCards, complete) => {
                         var node = element // hold head node bcs if sorting complete, we will need to remove from that index
                     }
                     rank += 1
-                    if (rank === 13) {
-                        new Audio(applauseAudio).play()
+                    if (rank === 4) {                        
+                        test && new Audio(applauseAudio).play()
                         complete += 1
-                        removeSelected(node, allCards)
-                        alert("You Have Completed a Deck")
+                        removeCardOldPlace(node, allCards)
+                        test && alert("You Have Completed a Deck")
                     }
                 } else rank = 1 // reset rank value for new deck
             }
@@ -146,11 +132,11 @@ export const firstClick = (item) => {
 export const secondClick = (item, highlighted, allCards, index) => {
     let undoControl = false
     if (item === null && +highlighted.val.value === 1) {
-        removeSelected(highlighted, allCards)
+        removeCardOldPlace(highlighted, allCards)
         allCards[index] = highlighted
         
     } else if (+item?.val.value === +highlighted.val.value - 1) { // check clicked item is correct for placing highlighted
-        removeSelected(highlighted, allCards) // remove card from old place
+        removeCardOldPlace(highlighted, allCards) // remove card from old place
 
         // add selected card to clicked card's next
         item.next = highlighted
@@ -174,7 +160,6 @@ export const secondClick = (item, highlighted, allCards, index) => {
 }
 
 export const getPrev = (allCards, find) => {
-    console.log(allCards)
     for (let index = 0; index < allCards.length; index++) {
         let element = allCards[index];
 
@@ -192,13 +177,16 @@ export const getPrev = (allCards, find) => {
 }
 
 export const undoPlacement = (allCards, prevCards) => {
+    // Find prevCards' old position by it's old index
     for (let index = 0; index < allCards.length; index++) {
         let element = allCards[index];
         if (prevCards.index === index) {
-
+            // when find check it is blank place or not
             if (element === null) {
+                // if blank place directly
                 allCards[index] = prevCards.newHead
             } else{
+                // if not need to place to last element
                 while (element.next !== null) {
                     element = element.next
                 }
@@ -214,10 +202,10 @@ export const getHint = (allCards, highlighted) => {
     for (let index = 0; index < allCards.length; index++) {
         let element = allCards[index];
         while (element !== null) {
-            let next_value = +highlighted.next.val.value - 1;
+            let next_value = +highlighted.val.value - 1;
             let cur_value = +element.val.value;
             if ((cur_value) === (next_value) && element.val.show === true && element.next === null) {
-                removeSelected(highlighted, allCards)
+                removeCardOldPlace(highlighted, allCards)
                 element.next = highlighted
                 removeHighlight(highlighted)
                 setCardDisplay(allCards)
@@ -230,27 +218,6 @@ export const getHint = (allCards, highlighted) => {
     return false
 }
 
-export const cardsPush = (card, index, clickCard) => {
-        let pushed =[]
-        if (card === null) {
-            pushed.push(
-                <BlankColumnCard clickCard={clickCard} card={card} index={index} />
-            )
-        }
-
-        let marginValue = 0 // for placing cards
-        while (card !== null) {
-
-        // pushed array contains each card 
-        pushed.push(
-            <Card marginValue={marginValue} clickCard={clickCard} index={index} card={card} />
-        )
-        card = card.next
-        marginValue += 1
-    }
-    return pushed
-}
-
 export const undoPlacementDist = (allCards) => {
     let prevRemCards = []
     for (let index = 0; index < allCards.length; index++) {
@@ -261,7 +228,7 @@ export const undoPlacementDist = (allCards) => {
         }
         
         prevRemCards.push(new card(element.val.deck, element.val.value, false, false))
-        removeSelected(element, allCards)
+        removeCardOldPlace(element, allCards)
     }
     console.log(prevRemCards)
     return prevRemCards

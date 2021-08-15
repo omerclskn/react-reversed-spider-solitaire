@@ -1,7 +1,7 @@
 import React from 'react'
 import {
     blankWrap
-} from '../../logic/Gameplay'
+} from '../../logic/ComponentCreate'
 import '../../assets/css/topNav.css'
 
 const cardholders = (clickRemCards, remCardCount) => {

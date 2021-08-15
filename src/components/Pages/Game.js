@@ -8,15 +8,15 @@ import {
         checkComplete,
         firstClick, 
         secondClick,
-        removeSelected,
+        removeCardOldPlace,
         undoPlacement,
         getPrev,
         getHint,
         removeHighlight,
-        cardsPush,
         undoPlacementDist
         }
         from '../../logic/Gameplay'
+import { cardsPush } from '../../logic/ComponentCreate'
 import { Redirect } from 'react-router-dom'
 import shuffleAudio from '../../assets/sound/shuffle.mp3'
 import flickAudio from '../../assets/sound/flick.mp3'
@@ -42,6 +42,7 @@ const Game = () => {
         if (active) {
             if (getHint(allCards, highlighted)) {
                 setCanUndo(true)
+                setUndoDistribute(false)
             } else{
                 alert("No Hint Found For This Card")
                 removeHighlight(highlighted)
@@ -61,7 +62,7 @@ const Game = () => {
                 setUndoDistribute(false)
             }
             else{
-                removeSelected(prevCards.newHead, allCards)
+                removeCardOldPlace(prevCards.newHead, allCards)
                 undoPlacement(allCards, prevCards)
                 setPrevCards(null)
             }
@@ -124,7 +125,7 @@ const Game = () => {
     }
 
     const CompleteControl = () => {
-        const { complete: newComplete  } = checkComplete(allCards, complete)
+        const { complete: newComplete  } = checkComplete(allCards, complete, true)
         newComplete !== complete && setCanUndo(false)
         setComplete(newComplete) // increase completed card value 
     }

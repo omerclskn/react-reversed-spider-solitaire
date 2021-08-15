@@ -31,7 +31,6 @@ for (let index = 0; index < array.length; index++) {
 }
 
 return linkedlist
-   
 }
 
 export default LinkedList
