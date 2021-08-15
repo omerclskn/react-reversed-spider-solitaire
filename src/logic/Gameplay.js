@@ -93,7 +93,7 @@ export const checkComplete = (allCards, complete) => {
         let rank = 1
         while (element !== null && element.next !== null) {
             if (element.val.show === true) {
-                let next_value = +element.next.val.value + 1;
+                let next_value = +element.next.val.value - 1;
                 let cur_value = +element.val.value;
                 if (next_value === cur_value) {
                     if (rank === 1) {
@@ -122,7 +122,7 @@ export const firstClick = (item) => {
 
         while (item.next !== null) {
 
-            let next_value = +item.next.val.value + 1;
+            let next_value = +item.next.val.value - 1;
             let cur_value = +item.val.value;
             // check cards if in correct order
             if (next_value !== cur_value || item.val.show === false) {
@@ -145,11 +145,11 @@ export const firstClick = (item) => {
 
 export const secondClick = (item, highlighted, allCards, index) => {
     let undoControl = false
-    if (item === null && +highlighted.val.value === 13) {
+    if (item === null && +highlighted.val.value === 1) {
         removeSelected(highlighted, allCards)
         allCards[index] = highlighted
         
-    } else if (+item?.val.value === +highlighted.val.value + 1) { // check clicked item is correct for placing highlighted
+    } else if (+item?.val.value === +highlighted.val.value - 1) { // check clicked item is correct for placing highlighted
         removeSelected(highlighted, allCards) // remove card from old place
 
         // add selected card to clicked card's next
@@ -159,7 +159,8 @@ export const secondClick = (item, highlighted, allCards, index) => {
     } else {
         // if not correct feedback to user and remove highlight
         if(item === null) {
-            alert("Only King's can be placed to blank columns")} 
+            alert("Only AS can be placed to blank columns")
+        } 
         else {
             if(item !== highlighted){
                 new Audio(wrongAudio).play()
@@ -213,7 +214,9 @@ export const getHint = (allCards, highlighted) => {
     for (let index = 0; index < allCards.length; index++) {
         let element = allCards[index];
         while (element !== null) {
-            if ((+element.val.value) === (+highlighted.val.value + 1) && element.val.show === true  && element.next === null) {
+            let next_value = +highlighted.next.val.value - 1;
+            let cur_value = +element.val.value;
+            if ((cur_value) === (next_value) && element.val.show === true && element.next === null) {
                 removeSelected(highlighted, allCards)
                 element.next = highlighted
                 removeHighlight(highlighted)
