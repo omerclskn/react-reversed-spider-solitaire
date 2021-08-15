@@ -1,8 +1,8 @@
 import React from 'react'
-import '../assets/css/infobox.css'
+import '../../assets/css/infobox.css'
 import Timer from './Timer'
 
-const InfoBox = ({complete}) => {
+const InfoBox = () => {
 
     const clickEvent = () => {
         window.location.reload()
@@ -10,9 +10,6 @@ const InfoBox = ({complete}) => {
 
     return (
         <div className="infobox">
-            <div>
-                <div> Completed Decks: { complete } </div> 
-            </div>
 
             <div id="timer">
                 <Timer />

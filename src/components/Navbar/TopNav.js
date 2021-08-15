@@ -1,8 +1,8 @@
 import React from 'react'
 import {
     blankWrap
-} from './Gameplay'
-import '../assets/css/topNav.css'
+} from '../../logic/Gameplay'
+import '../../assets/css/topNav.css'
 
 const cardholders = (clickRemCards, remCardCount) => {
     let marginValue = 0

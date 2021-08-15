@@ -1,6 +1,6 @@
 import React from 'react'
 import { Fireworks } from 'fireworks-js/dist/react'
-import '../assets/css/finish.css'
+import '../../assets/css/finish.css'
 import { Link } from 'react-router-dom'
 
 const FinishPage = () => {

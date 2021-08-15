@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import '../assets/css/card.css'
-import CardGenerator from '../CardGenerator'
-import InfoBox from './InfoBox'
-import TopNav from './TopNav'
+import '../../assets/css/card.css'
+import CardGenerator from '../../logic/CardGenerator'
+import InfoBox from '../Footer/InfoBox'
+import TopNav from '../Navbar/TopNav'
 import {  
         clickGetCards, 
         checkComplete,
@@ -16,10 +16,11 @@ import {
         cardsPush,
         undoPlacementDist
         }
-        from './Gameplay'
+        from '../../logic/Gameplay'
 import { Redirect } from 'react-router-dom'
-import shuffleAudio from '../assets/sound/shuffle.mp3'
-import flickAudio from '../assets/sound/flick.mp3'
+import shuffleAudio from '../../assets/sound/shuffle.mp3'
+import flickAudio from '../../assets/sound/flick.mp3'
+import wrongAudio from '../../assets/sound/wrong.mp3'
 
 const Game = () => {
 
@@ -105,12 +106,15 @@ const Game = () => {
                 setCanUndo(false)
             }
         } else {
-            new Audio(flickAudio).play()
             setPrevCards({
                 ...prevCards,
                 removeIndex: index
             })
-            secondClick(item, highlighted, allCards, index) && setCanUndo(true)
+
+            if(secondClick(item, highlighted, allCards, index)){
+                setCanUndo(true)
+                new Audio(flickAudio).play()
+            }
 
             // reset variables for new processes, check if any completed decks
             setActive(false)
@@ -143,7 +147,7 @@ const Game = () => {
                 }
             </div>
 
-            <InfoBox request={request} complete={complete}/>
+            <InfoBox />
         
         </div> : <Redirect to="/finish" />
  

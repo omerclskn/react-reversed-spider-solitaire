@@ -1,9 +1,10 @@
 import '../assets/css/card.css'
-import BlankCard from './BlankCard'
-import Card from './Card'
-import BlankColumnCard from './BlankColumnCard'
-import {card} from '../CardGenerator'
+import BlankCard from '../components/Card/BlankCard'
+import Card from '../components/Card/Card'
+import BlankColumnCard from '../components/Card/BlankColumnCard'
+import {card} from './CardGenerator'
 import applauseAudio from '../assets/sound/applause.mp3'
+import wrongAudio from '../assets/sound/wrong.mp3'
 
 export const blankWrap = (complete) => {
     let blanks = []
@@ -157,8 +158,14 @@ export const secondClick = (item, highlighted, allCards, index) => {
         
     } else {
         // if not correct feedback to user and remove highlight
-        item === null ? alert("Only King's can be placed to blank columns") : (item === highlighted || alert("Incorrect Placement"))
-        
+        if(item === null) {
+            alert("Only King's can be placed to blank columns")} 
+        else {
+            if(item !== highlighted){
+                new Audio(wrongAudio).play()
+                alert("Incorrect Placement") 
+            }
+        }
     }
     removeHighlight(highlighted)
     setCardDisplay(allCards)

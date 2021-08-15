@@ -1,6 +1,7 @@
 import React from 'react'
-import clock from '../assets/images/clock.svg'
-import '../assets/css/timer.css'
+import clock from '../../assets/images/clock.svg'
+import '../../assets/css/timer.css'
+import shuffleAudio from '../../assets/sound/shuffle.mp3'
 
 export default class Timer extends React.Component {
     constructor() {
@@ -30,6 +31,7 @@ export default class Timer extends React.Component {
     }
 
     componentDidMount() {
+        new Audio(shuffleAudio).play()
         let timeLeftVar = this.secondsToTime(this.state.seconds);
         this.setState({
             time: timeLeftVar

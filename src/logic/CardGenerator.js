@@ -1,4 +1,4 @@
-import linkedlist from './components/linkedlist'
+import linkedlist from './linkedlist'
 
 export class card {
     constructor(deck, value, show, active){

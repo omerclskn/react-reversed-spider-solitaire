@@ -1,8 +1,8 @@
 import React from 'react';
-import Game from './components/Game'
+import Game from './components/Pages/Game'
 import { Route, Router } from 'react-router-dom'
-import FinishPage from './components/FinishPage'
-import history from './components/history';
+import FinishPage from './components/Pages/FinishPage'
+import history from './history';
 
 function App() {
   return (
