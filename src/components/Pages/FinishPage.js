@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useRef,useEffect } from 'react'
 import { Fireworks } from 'fireworks-js/dist/react'
 import '../../assets/css/finish.css'
 import { Link } from 'react-router-dom'
+import fireworkAudio from '../../assets/sound/firework.mp3'
 
 const FinishPage = () => {
+
+    let audio = useRef();
+    // start the audio when the component mounts using the useEffect hook
+    useEffect(() => {
+        audio.current = new Audio(fireworkAudio)
+        audio.current.play()
+    }, [])
+
+    // Stop the audio when the component unmounts
+    useEffect(() => {
+        return () => {
+            audio.current.pause()
+        }
+    }, [])
 
     const options = {
         speed: 15

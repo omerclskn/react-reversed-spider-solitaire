@@ -20,7 +20,6 @@ import {
 import { Redirect } from 'react-router-dom'
 import shuffleAudio from '../../assets/sound/shuffle.mp3'
 import flickAudio from '../../assets/sound/flick.mp3'
-import wrongAudio from '../../assets/sound/wrong.mp3'
 
 const Game = () => {
 
@@ -68,7 +67,7 @@ const Game = () => {
             }
             setCanUndo(false)
         } else{
-            alert("You Cannot Undo in a Row")
+            alert("You Can Undo After Any Correct Placement or Distribute New Cards \n--- You Cannot Undo In a Row ---")
             active && removeHighlight(highlighted)
             setActive(false)
         }
