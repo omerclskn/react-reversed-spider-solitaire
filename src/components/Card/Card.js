@@ -23,7 +23,9 @@ const Card = ({marginValue, clickCard, index, card}) => {
                 ...(isShow ? { // if card's show property true, display the card
                     background: (`var(${cardType})`),
                                 backgroundSize: 'contain',
-                                backgroundRepeat: 'no-repeat'} : ""), }}  >
+                                backgroundRepeat: 'no-repeat'} : ""),
+                    ...( width2 < 950 ? {height: width2 > 700 ? 90 : 50,
+                                        width: width2 > 700 ? 65 : 36} : "") }}  >
         </div>
     )
 }

@@ -34,3 +34,10 @@ code {
 a{
   text-decoration: none;
 }
+
+.d-flex-col{
+  flex-direction: column;
+  gap: 15px;
+}
+
+
