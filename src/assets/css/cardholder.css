@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: space-around;
+    height: 120px;
 }
 
 .cardholder {
@@ -9,10 +10,11 @@
 }
 
 .cardholders {
-    width: 15%;
+    width: 20%;
+    margin-left: 60px;
 }
 
 .blank-wrap {
     display: flex;
-    gap: 20px;
+    width: 80%;
 }

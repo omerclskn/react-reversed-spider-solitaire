@@ -1,7 +1,10 @@
 import React from 'react'
 import CardTypeFinder from './CardTypeFinder'
+import useWindowDimensions from '../useWindowDimensions'
 
 const Card = ({marginValue, clickCard, index, card}) => {
+
+    const { height, width:width2 } = useWindowDimensions();
 
     const id = card.val.value + " " + card.val.deck// calculate each cards spesific id
     const cardType = CardTypeFinder(card) // get correct image for card's value
@@ -15,8 +18,8 @@ const Card = ({marginValue, clickCard, index, card}) => {
                 "card " + (isActive ? 'selectedCard' : '') // if card's active property true, highlight to card
             }
             onClick = { clickCard(card, index) }
-            style={{ 
-            marginTop:(marginValue*25), 
+            style={{
+            marginTop: (marginValue * (width2 < 810 ? 15 : 25)),
                 ...(isShow ? { // if card's show property true, display the card
                     background: (`var(${cardType})`),
                                 backgroundSize: 'contain',

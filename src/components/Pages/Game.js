@@ -134,7 +134,6 @@ const Game = () => {
         // wrap cards with column and inside the columns add new cards to get 4 * 6, 6 * 5 card matrix
         complete < 8 ?
         <div>
-
             <TopNav clickUndo={clickUndo} clickHint={clickHint} />
 
             <CardHolder clickRemCards={clickRemCards} remCards={remCards} complete={complete} />

@@ -14,8 +14,8 @@
     background: url('../images/closed_card.png');
     background-size: contain;
     background-repeat: no-repeat;
-    height: 17vh;
-    width: 6vw;
+    height: 125px;
+    width: 90px;
     cursor: pointer;
     overflow: hidden;
     position: absolute;
@@ -34,8 +34,10 @@
 }
 
 .blank {
-    height: 17vh;
-    width: 6vw;
+    height: 125px;
+    width: 90px;
     cursor: pointer;
     border: 1px solid white;
+    position: absolute;
+    border-radius: 5px;
 }
