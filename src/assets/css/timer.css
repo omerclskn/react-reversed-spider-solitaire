@@ -1,5 +1,6 @@
 .timer{
     display: flex;
+    color: white;
 }
 
 .timer > :first-child{

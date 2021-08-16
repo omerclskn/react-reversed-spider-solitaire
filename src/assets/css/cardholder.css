@@ -1,0 +1,18 @@
+.top{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.cardholder {
+    position: absolute;
+}
+
+.cardholders {
+    width: 15%;
+}
+
+.blank-wrap {
+    display: flex;
+    gap: 20px;
+}

@@ -1,45 +1,53 @@
 import React from 'react'
-import {
-    blankWrap
-} from '../../logic/ComponentCreate'
 import '../../assets/css/topNav.css'
+import { Link } from 'react-router-dom'
+import Timer from './Timer'
 
-const cardholders = (clickRemCards, remCardCount) => {
-    let marginValue = 0
-    let cardHolderPush = []
-    for (let index = 0; index < remCardCount; index++) {
-        cardHolderPush.push(
-            <div 
-            style={{marginLeft: marginValue*30}}
-            className = "card cardholder"
-            onClick = { clickRemCards } >
-        </div>
-        )
-        marginValue += 1
+import restartIcon from '../../assets/images/restart.svg'
+import undoIcon from '../../assets/images/undo.png'
+import hintIcon from '../../assets/images/help.png'
+import rulesIcon from '../../assets/images/rules.png'
+
+const TopNav = ({clickUndo, clickHint}) => {
+
+    const clickEvent = () => {
+        window.location.reload()
     }
-    return cardHolderPush
-}
-
-const TopNav = ({remCards ,clickUndo, clickHint, clickRemCards, complete}) => {
+    
     return ( 
     <div className="top-nav">
-        
-        <div className = "btn"
-            onClick = { clickUndo } > Undo 
+
+        <div id="timer">
+                <Timer />
+            </div>
+
+        <div className="btn-wrap">
+            <div className = "btn"
+            onClick = { clickUndo } > 
+            <img src={undoIcon} alt="Undo" />
+            Undo 
         </div>
 
         <div className = "btn"
-            onClick = { clickHint } > Hint 
+            onClick = { clickHint } > 
+            <img src={hintIcon} alt="Hint" />
+            Hint 
         </div>
 
-        <div className="cardholders">
-        {cardholders(clickRemCards, remCards.length/10)}
+            <div className = "btn"
+                onClick={clickEvent} > 
+                <img src={restartIcon} alt="Restart" />
+                 Restart 
+            </div>
+
+        <Link to="/rules">
+            <div className = "btn">
+                <img src={rulesIcon} alt="Rules" />
+                 Rules
+            </div>
+        </Link>
         </div>
 
-        <div className = "blank-wrap" > 
-        { blankWrap(complete) } 
-        </div>
-        
     </div>
     )
 }

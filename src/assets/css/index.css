@@ -17,12 +17,15 @@ code {
 }
 
 .btn {
+  display: flex;
+  justify-content: center;
   padding: 10px;
   cursor: pointer;
   color: white;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.5);
   height: 25px;
+  gap: 10px;
 }
 
 .btn:hover {

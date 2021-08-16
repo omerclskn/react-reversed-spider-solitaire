@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import '../../assets/css/card.css'
 import CardGenerator from '../../logic/CardGenerator'
-import InfoBox from '../Footer/InfoBox'
 import TopNav from '../Navbar/TopNav'
 import {  
         clickGetCards, 
@@ -17,6 +16,7 @@ import {
         }
         from '../../logic/Gameplay'
 import { cardsPush } from '../../logic/ComponentCreate'
+import CardHolder from '../CardHolder/CardHolder'
 import { Redirect } from 'react-router-dom'
 import shuffleAudio from '../../assets/sound/shuffle.mp3'
 import flickAudio from '../../assets/sound/flick.mp3'
@@ -135,7 +135,9 @@ const Game = () => {
         complete < 8 ?
         <div>
 
-            <TopNav remCards={remCards} clickUndo={clickUndo} clickHint={clickHint} clickRemCards={clickRemCards} complete={complete} />
+            <TopNav clickUndo={clickUndo} clickHint={clickHint} />
+
+            <CardHolder clickRemCards={clickRemCards} remCards={remCards} complete={complete} />
 
             <div 
             className="cards">
@@ -146,8 +148,6 @@ const Game = () => {
                     ))
                 }
             </div>
-
-            <InfoBox />
         
         </div> : <Redirect to="/finish" />
  

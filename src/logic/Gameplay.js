@@ -145,7 +145,7 @@ export const secondClick = (item, highlighted, allCards, index) => {
     } else {
         // if not correct feedback to user and remove highlight
         if(item === null) {
-            alert("Only AS can be placed to blank columns")
+            alert("Only A can be placed to blank columns")
         } 
         else {
             if(item !== highlighted){
