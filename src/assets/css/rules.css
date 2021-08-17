@@ -1,31 +1,35 @@
 .container {
-    width: 750px;
-    height: 512px;
-    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100vh;
 
-    position: absolute;
-    margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.context{
+    width: 55%;
+    color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
 
     border-radius: 20px;
     overflow: hidden;
 }
 
-.context{
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 24px;
-}
-
 .context h1{
     text-align: center;
     border-bottom: 1px solid white;
-    padding-bottom: 20px;
+    padding: 20px;
+}
+
+.context ul{
+    padding: 30px;
 }
 
 .context ul li {
+    list-style-type: square;
+    list-style-position: inside;
     padding: 10px;
 }
 

@@ -32,9 +32,9 @@ export default class Timer extends React.Component {
 
     componentDidMount() {
         new Audio(shuffleAudio).play()
-        let timeLeftVar = this.secondsToTime(this.state.seconds);
+        let timeVar = this.secondsToTime(this.state.seconds);
         this.setState({
-            time: timeLeftVar
+            time: timeVar
         });
         setInterval(this.countUp, 1000);
     }

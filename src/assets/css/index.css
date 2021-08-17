@@ -30,6 +30,7 @@ code {
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.5);
   gap: 10px;
+  border: 1px solid transparent;
 }
 
 .btn:hover {
