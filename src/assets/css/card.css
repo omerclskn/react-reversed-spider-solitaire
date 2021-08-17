@@ -14,7 +14,7 @@
 }
 
 .card{
-    background: url('../images/closed_card.png');
+    background: url('../images/closed_card-spider.png');
     background-size: contain;
     background-repeat: no-repeat;
     height: 125px;
@@ -36,22 +36,16 @@
     border-radius: 2px;
 }
 
-.blank-wrap {
-    display: flex;
-    justify-content: space-between;
-}
-
 .blank {
+    background: url('../images/spider-removebg-preview.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
     height: 100%;
     width: 100%;
     cursor: pointer;
     border: 1px solid white;
     position: absolute;
     border-radius: 5px;
-}
-
-.blank-wrap li {
-    position: relative;
-    width: 90px;
-    height: 125px;
 }

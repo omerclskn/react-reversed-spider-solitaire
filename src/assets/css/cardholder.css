@@ -11,3 +11,15 @@
 .cardholders {
     width: 185px;
 }
+
+.blank-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.blank-wrap li {
+    position: relative;
+    width: 90px;
+    height: 125px;
+    background: rgba(255,255,255,0.4)
+}

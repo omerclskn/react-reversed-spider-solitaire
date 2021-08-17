@@ -12,8 +12,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  background: url('../images/green_back.jpg');
+  min-height: 100vh;
+  background: url('../images/spider-web-background.png');
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 code {
@@ -28,7 +30,7 @@ code {
   cursor: pointer;
   color: white;
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 1);
   gap: 10px;
   border: 1px solid transparent;
 }
