@@ -1,6 +1,7 @@
 .top{
-    display: flex;
-    height: 120px;
+    display: grid;
+    padding: 0 3%;
+    grid-template-columns: 3fr 6fr;
 }
 
 .cardholder {
@@ -8,11 +9,5 @@
 }
 
 .cardholders {
-    width: 25%;
-    margin-left: 60px;
-}
-
-.blank-wrap {
-    display: flex;
-    width: 75%;
+    width: 185px;
 }

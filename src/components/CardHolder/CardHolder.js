@@ -12,9 +12,9 @@ const cardholders = (clickRemCards, remCardCount, width2) => {
     for (let index = 0; index < remCardCount; index++) {
         cardHolderPush.push(
             <div 
-            style={{marginLeft: marginValue*( width2 > 810 ? 30 : 15),
-            ...( width2 < 950 ? {height: width2 > 700 ? 90 : 50,
-                                        width: width2 > 700 ? 65 : 36} : "")}}
+            style={{marginLeft: marginValue*( width2 > 910 ? 30 : 15),
+            ...( width2 < 1150 ? {height: width2 > 910 ? 90 : 50,
+                                        width: width2 > 910 ? 65 : 36} : "")}}
             className = "card cardholder"
             onClick = { clickRemCards } >
         </div>
@@ -29,14 +29,14 @@ const CardHolder = ({clickRemCards, remCards, complete}) => {
     const { height, width } = useWindowDimensions();
 
     return (
-        <div className="top">
+        <div className={"top" + (width < 640 ? " d-grid-row" : "")} >
             <div className="cardholders">
         {cardholders(clickRemCards, remCards.length/10, width)}
         </div>
 
-        <div className = "blank-wrap" > 
+        <ul className = "blank-wrap" > 
         { blankWrap(complete) } 
-        </div>
+        </ul>
         </div>
     )
 }

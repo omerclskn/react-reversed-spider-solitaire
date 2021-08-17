@@ -24,7 +24,7 @@ const TopNav = ({clickUndo, clickHint}) => {
                 <Timer />
             </div>
 
-        <div className={"btn-wrap " + (width < 440 ? "d-flex-col" : "")}>
+        <div className={"btn-wrap " + (width < 452 ? "d-flex-col" : "")}>
             <div className = "btn"
             onClick = { clickUndo } > 
             <img src={undoIcon} alt="Undo" />

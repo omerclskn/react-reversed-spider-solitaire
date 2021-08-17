@@ -1,3 +1,8 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -35,9 +40,19 @@ a{
   text-decoration: none;
 }
 
-.d-flex-col{
+li{
+  list-style-type: none;
+}
+
+.d-flex-col {
   flex-direction: column;
   gap: 15px;
+}
+
+.d-grid-row{
+  grid-template-columns: 1fr !important;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px
 }
 
 

@@ -12,9 +12,9 @@ const BlankColumnCard = ({clickCard, card, index}) => {
                 className="blank"
                 onClick = { clickCard(card, index) }
                 style={{
-                    ...(width2 < 950 ? {
-                        height: width2 > 700 ? 90 : 50,
-                        width: width2 > 700 ? 65 : 36
+                    ...(width2 < 1150 ? {
+                        height: width2 > 910 ? 90 : 50,
+                        width: width2 > 910 ? 65 : 36
                     } : "")
                 }} >
                     </div>

@@ -19,13 +19,13 @@ const Card = ({marginValue, clickCard, index, card}) => {
             }
             onClick = { clickCard(card, index) }
             style={{
-            marginTop: (marginValue * (width2 < 810 ? 15 : 25)),
+            marginTop: (marginValue * (width2 < 910 ? 15 : 25)),
                 ...(isShow ? { // if card's show property true, display the card
                     background: (`var(${cardType})`),
                                 backgroundSize: 'contain',
                                 backgroundRepeat: 'no-repeat'} : ""),
-                    ...( width2 < 950 ? {height: width2 > 700 ? 90 : 50,
-                                        width: width2 > 700 ? 65 : 36} : "") }}  >
+                    ...( width2 < 1150 ? {height: width2 > 910 ? 90 : 50,
+                                        width: width2 > 910 ? 65 : 36} : "") }}  >
         </div>
     )
 }
