@@ -1,8 +1,25 @@
-import React from 'react'
+import React, {useState, useReducer} from 'react'
 import CardTypeFinder from './CardTypeFinder'
 import useWindowDimensions from '../useWindowDimensions'
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import { firstClick ,secondClick } from '../../logic/Gameplay';
 
 const Card = ({marginValue, clickCard, index, card}) => {
+
+    const isDraggable = (card) => {
+        while (card.next !== null) {
+
+            let next_value = +card.next.val.value - 1;
+            let cur_value = +card.val.value;
+            // check cards if in correct order
+            if (next_value !== cur_value || card.val.show === false) {
+                return false
+            }
+
+            card = card.next
+        }
+        return true
+    }
 
     const { width:width2 } = useWindowDimensions();
 
@@ -13,6 +30,10 @@ const Card = ({marginValue, clickCard, index, card}) => {
 
     return (
         <div
+            draggable={ isDraggable(card) }
+            onDragStart={ clickCard(card,index) }
+            onDrop={ clickCard(card,index) }
+            onDragOver={ (e) => e.preventDefault() }
             id={id}
             className = {
                 "card " + (isActive ? 'selectedCard' : '') // if card's active property true, highlight to card

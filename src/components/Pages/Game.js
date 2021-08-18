@@ -81,6 +81,12 @@ const Game = () => {
                 remCards: newRemCards
             } = clickGetCards(request, allCards, remCards)
 
+            if (active) {
+                setHighlighted({})
+                removeHighlight(highlighted)
+                setActive(false)
+            }
+
             setRequest(newRequest)
             setRemCards(newRemCards)
             setCanUndo(true)
