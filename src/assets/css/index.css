@@ -30,7 +30,7 @@ code {
   cursor: pointer;
   color: white;
   border-radius: 10px;
-  background: rgba(0, 0, 0, 1);
+  background: rgba(23, 27, 76, 0.8);
   gap: 10px;
   border: 1px solid transparent;
 }

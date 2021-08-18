@@ -1,9 +1,15 @@
 .timer{
     display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.3);
     color: white;
+    border-radius: 15px;
 }
 
 .timer > :first-child{
+    display: flex;
     margin-right: 15px;
 }
 

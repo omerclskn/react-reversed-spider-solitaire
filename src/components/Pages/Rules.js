@@ -10,10 +10,10 @@ const Rules = () => {
                 <h1>Rules</h1>
                 <ul>
                     <li> You should sort top to bottom as A, 2, 3, 4, 5, 6, 7, 8, 9, 10, K, Q, J. </li>
-                    <li> You cannot undo in a row. Undo can triggered after you click a card so you cannot undo if select any card.</li>
+                    <li> You cannot undo in a row. Undo is triggered after you click a card so you cannot undo if any card selected.</li>
                     <li> You can undo after distribute new cards. </li>
                     <li> You have to click at least one card to get hint. </li>
-                    <li> If any blank column, only A can be placed.  </li>
+                    <li> If any blank column exist, only A can be placed.  </li>
                 </ul>
                 <Link to="/">
             <div
