@@ -3,7 +3,7 @@ import useWindowDimensions from '../useWindowDimensions'
 
 const BlankColumnCard = ({clickCard, card, index}) => {
 
-    const { height, width:width2 } = useWindowDimensions();
+    const { width:width2 } = useWindowDimensions();
 
 
     return (

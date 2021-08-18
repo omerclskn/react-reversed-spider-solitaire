@@ -3,7 +3,7 @@ import useWindowDimensions from '../useWindowDimensions'
 
 const BlankCard = ({complete, index}) => {
 
-    const { height, width:width2 } = useWindowDimensions();
+    const { width:width2 } = useWindowDimensions();
 
     return (
         <li style={{ ...(width2 < 1150 ? {

@@ -4,7 +4,7 @@ import useWindowDimensions from '../useWindowDimensions'
 
 const Card = ({marginValue, clickCard, index, card}) => {
 
-    const { height, width:width2 } = useWindowDimensions();
+    const { width:width2 } = useWindowDimensions();
 
     const id = card.val.value + " " + card.val.deck// calculate each cards spesific id
     const cardType = CardTypeFinder(card) // get correct image for card's value

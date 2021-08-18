@@ -26,7 +26,7 @@ const cardholders = (clickRemCards, remCardCount, width2) => {
 
 const CardHolder = ({clickRemCards, remCards, complete}) => {
 
-    const { height, width } = useWindowDimensions();
+    const { width } = useWindowDimensions();
 
     return (
         <div className={"top" + (width < 640 ? " d-grid-row" : "")} >
