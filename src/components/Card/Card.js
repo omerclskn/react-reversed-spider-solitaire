@@ -1,8 +1,6 @@
-import React, {useState, useReducer} from 'react'
+import React from 'react'
 import CardTypeFinder from './CardTypeFinder'
 import useWindowDimensions from '../useWindowDimensions'
-import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import { firstClick ,secondClick } from '../../logic/Gameplay';
 
 const Card = ({marginValue, clickCard, index, card}) => {
 
