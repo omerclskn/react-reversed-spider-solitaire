@@ -48,7 +48,7 @@ const TopNav = ({clickUndo, clickHint, complete, handleTime}) => {
             </div>
 
         <Link to="/rules">
-            <div className = "btn">
+            <div className = "btn" id="rules">
                 <img src={rulesIcon} alt="Rules" />
                  Rules
             </div>
