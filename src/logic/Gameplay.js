@@ -39,7 +39,7 @@ export const removeCardOldPlace = (remove, allCards) => {
 }
 
 export const setCardDisplay = (allCards) => {
-    // traverse every card and set displayness to true if it's first element 
+    // traverse every card and set visibility to true if it's last element 
     for (let index = 0; index < allCards.length; index++) {
         let element = allCards[index]
         if (element !== null) {
@@ -134,6 +134,7 @@ export const secondClick = (item, highlighted, allCards, index) => {
     if (item === null && +highlighted.val.value === 1) {
         removeCardOldPlace(highlighted, allCards)
         allCards[index] = highlighted
+        undoControl = true
         
     } else if (+item?.val.value === +highlighted.val.value - 1) { // check clicked item is correct for placing highlighted
         removeCardOldPlace(highlighted, allCards) // remove card from old place
@@ -198,12 +199,14 @@ export const undoPlacement = (allCards, prevCards) => {
 }
 
 export const getHint = (allCards, highlighted) => {
-
+    // check all cards for any eligible card for replacement
     for (let index = 0; index < allCards.length; index++) {
         let element = allCards[index];
         while (element !== null) {
+
             let next_value = +highlighted.val.value - 1;
             let cur_value = +element.val.value;
+            // if found do replacement, remove card, remove it's highlight and set display
             if ((cur_value) === (next_value) && element.val.show === true && element.next === null) {
                 removeCardOldPlace(highlighted, allCards)
                 element.next = highlighted
@@ -219,6 +222,7 @@ export const getHint = (allCards, highlighted) => {
 }
 
 export const undoPlacementDist = (allCards) => {
+    // get last cards of every column
     let prevRemCards = []
     for (let index = 0; index < allCards.length; index++) {
         let element = allCards[index];
@@ -227,9 +231,57 @@ export const undoPlacementDist = (allCards) => {
             element = element.next
         }
         
+        // push cards into array
         prevRemCards.push(new card(element.val.deck, element.val.value, false, false))
-        removeCardOldPlace(element, allCards)
+        removeCardOldPlace(element, allCards) // remove last cards from board
     }
-    console.log(prevRemCards)
+
     return prevRemCards
+}
+
+export const getCompleteHint = (allCards) => {
+
+    for (let index = 0; index < allCards.length; index++) {
+        let element = allCards[index];
+
+        if (element === null) {
+            continue
+        }
+
+        // select column's last card
+        while (element.next !== null) {
+            element = element.next
+        }
+
+        for (let index2 = 1; index2 < allCards.length; index2++) {
+            let element2 = allCards[index2]
+
+            if (element2 === null) {
+                continue
+            }
+
+            // select second card
+            while (element2.next !== null) {
+                element2 = element2.next
+            }
+
+            // check for eligibility
+            let next_value = +element2.val.value - 1;
+            let cur_value = +element.val.value;
+
+            // if eligible show cards for 2 seconds
+            if (next_value === cur_value) {
+                element.val.active = true
+                element2.val.active = true
+
+                setInterval( function() {
+                    element.val.active = false
+                    element2.val.active = false
+                } , 2000)
+
+                return true
+            }
+        }
+    }
+    return false
 }

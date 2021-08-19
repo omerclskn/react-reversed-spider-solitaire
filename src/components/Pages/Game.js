@@ -12,7 +12,8 @@ import {
         getPrev,
         getHint,
         removeHighlight,
-        undoPlacementDist
+        undoPlacementDist,
+        getCompleteHint
         }
         from '../../logic/Gameplay'
 import { cardsPush } from '../../logic/ComponentCreate'
@@ -20,7 +21,6 @@ import CardHolder from '../CardHolder/CardHolder'
 import { Redirect } from 'react-router-dom'
 import shuffleAudio from '../../assets/sound/shuffle.mp3'
 import flickAudio from '../../assets/sound/flick.mp3'
-import Timer from'../Navbar/Timer'
 
 const Game = () => {
 
@@ -35,29 +35,33 @@ const Game = () => {
     const [ request, setRequest ] = useState(0) // request keeps how many deck of cards will come from remaining cards
     const [ remCards, setRemCards ] = useState(card_rem) // remaining cards
     const [ complete, setComplete ] = useState(0) // complete keeps how many decks will completed
-    const [ prevCards, setPrevCards ] = useState(null)
-    const [ canUndo, setCanUndo ] = useState(false)
-    const [ undoDistribute, setUndoDistribute ] = useState(false)
-    const [ totalClick, setTotalClick ] = useState(0)
-    const [ time, setTime ] = useState(0)
+    const [ prevCards, setPrevCards ] = useState(null) // keep prev card for undo
+    const [ canUndo, setCanUndo ] = useState(false) // undo control
+    const [ undoDistribute, setUndoDistribute ] = useState(false) // undo after distribute new cards control
+    const [ totalClick, setTotalClick ] = useState(0) // totalclick value for final score
+    const [ time, setTime ] = useState(0) // hold time for display at final page
     
     const handleTime = (time) => {
         setTime(time)
     }
 
     const clickHint = () => {
+        // Checking whether there is a selected card 
         if (active) {
+            // if yes, control all cards, if any eligible card do replacement
             if (getHint(allCards, highlighted)) {
                 setTotalClick(totalClick + 3)
                 setCanUndo(true)
                 setUndoDistribute(false)
             } else{
+                // if not eligible card remove highlight 
                 alert("No Hint Found For This Card")
                 removeHighlight(highlighted)
             }
             setActive(false)
         } else{
-            alert("You need to click at least one card for hint")
+            // if there is no selected card search all cards for any hint
+            getCompleteHint(allCards) || alert("No Hint Found")
         }
     }
 
@@ -65,19 +69,19 @@ const Game = () => {
 
         if (canUndo) {
             if (undoDistribute) {
-                const prevRemCards = undoPlacementDist(allCards)
-                setRemCards([...prevRemCards, ...remCards])
+                const prevRemCards = undoPlacementDist(allCards) // get distributed cards
+                setRemCards([...prevRemCards, ...remCards]) // set remaining cards
                 setUndoDistribute(false)
             }
             else{
-                removeCardOldPlace(prevCards.newHead, allCards)
-                undoPlacement(allCards, prevCards)
+                removeCardOldPlace(prevCards.newHead, allCards) // if last move not distribution undo last replacement
+                undoPlacement(allCards, prevCards) // do undo
                 setPrevCards(null)
                 setTotalClick(totalClick + 2)
             }
-            setCanUndo(false)
+            setCanUndo(false) 
         } else{
-            alert("You Can Undo After Any Correct Placement or Distribute New Cards \n--- You Cannot Undo In a Row ---")
+            alert("Please Go to the Rules Page for Undo Rules")
             active && removeHighlight(highlighted)
             setActive(false)
         }
@@ -85,17 +89,20 @@ const Game = () => {
 
     const clickRemCards = () => {
         new Audio(shuffleAudio).play()
+        // set new remaining cards, request is holding remaining card click count
             const {
                 request: newRequest,
                 remCards: newRemCards
             } = clickGetCards(request, allCards, remCards)
 
+            // if any selected card remove highlight 
             if (active) {
                 setHighlighted({})
                 removeHighlight(highlighted)
                 setActive(false)
             }
 
+            // set new variables
             setRequest(newRequest)
             setRemCards(newRemCards)
             setCanUndo(true)
@@ -112,7 +119,8 @@ const Game = () => {
                 const newHead = firstClick(item)
                 const prevShow = getPrev(allCards, newHead)
                 setActive(true)
-                setHighlighted(newHead)
+                setHighlighted(newHead) // highlight clicked card
+                // set previous card information for undo
                 setPrevCards({
                     index,
                     newHead,
@@ -122,11 +130,13 @@ const Game = () => {
                 setCanUndo(false)
             }
         } else {
+            // set prevcards index for undo
             setPrevCards({
                 ...prevCards,
                 removeIndex: index
             })
 
+            // if placement success set undo control
             if(secondClick(item, highlighted, allCards, index)){
                 setCanUndo(true)
                 new Audio(flickAudio).play()
@@ -149,6 +159,8 @@ const Game = () => {
     
     return (
         // wrap cards with column and inside the columns add new cards to get 4 * 6, 6 * 5 card matrix
+        // call cardholder and navbar components
+        // if all decks completed redirect to finish page with stats
         complete < 2 ?
         <div>
             <TopNav clickUndo={clickUndo} clickHint={clickHint} complete={complete} handleTime={handleTime}/>
