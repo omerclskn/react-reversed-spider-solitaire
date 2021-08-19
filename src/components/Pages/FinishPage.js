@@ -48,6 +48,7 @@ const FinishPage = (props) => {
                     <span> You Finished in {time} Seconds </span>
                     <span> Your Click Rate is {click} </span>
                     <span> Calculated Score is { calculate() } </span>
+                    <p>* Score is calculated by ( (completed decks * 250) + win bonus ) / (elapsed time * click rate) </p>
                 </div>
             </div>
 
