@@ -19,6 +19,7 @@ const BlankCard = ({complete, index}) => {
                         backgroundSize: 'contain',
                         backgroundRepeat: 'no-repeat'
                     } : ""),
+                    cursor: "default"
                 }
             } >
             </div>

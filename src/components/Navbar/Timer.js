@@ -45,6 +45,7 @@ export default class Timer extends React.Component {
             time: this.secondsToTime(seconds),
             seconds: seconds,
         });
+        this.props.handleTime(seconds)
     }
 
     render() {

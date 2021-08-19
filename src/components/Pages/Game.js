@@ -20,6 +20,7 @@ import CardHolder from '../CardHolder/CardHolder'
 import { Redirect } from 'react-router-dom'
 import shuffleAudio from '../../assets/sound/shuffle.mp3'
 import flickAudio from '../../assets/sound/flick.mp3'
+import Timer from'../Navbar/Timer'
 
 const Game = () => {
 
@@ -37,10 +38,17 @@ const Game = () => {
     const [ prevCards, setPrevCards ] = useState(null)
     const [ canUndo, setCanUndo ] = useState(false)
     const [ undoDistribute, setUndoDistribute ] = useState(false)
+    const [ totalClick, setTotalClick ] = useState(0)
+    const [ time, setTime ] = useState(0)
+    
+    const handleTime = (time) => {
+        setTime(time)
+    }
 
     const clickHint = () => {
         if (active) {
             if (getHint(allCards, highlighted)) {
+                setTotalClick(totalClick + 3)
                 setCanUndo(true)
                 setUndoDistribute(false)
             } else{
@@ -65,6 +73,7 @@ const Game = () => {
                 removeCardOldPlace(prevCards.newHead, allCards)
                 undoPlacement(allCards, prevCards)
                 setPrevCards(null)
+                setTotalClick(totalClick + 2)
             }
             setCanUndo(false)
         } else{
@@ -92,6 +101,7 @@ const Game = () => {
             setCanUndo(true)
             setUndoDistribute(true)
             CompleteControl()
+            setTotalClick(totalClick - 5)
     }
 
     const clickCard = (item, index) => (e) => {
@@ -120,6 +130,7 @@ const Game = () => {
             if(secondClick(item, highlighted, allCards, index)){
                 setCanUndo(true)
                 new Audio(flickAudio).play()
+                setTotalClick(totalClick + 1)
             }
 
             // reset variables for new processes, check if any completed decks
@@ -138,9 +149,9 @@ const Game = () => {
     
     return (
         // wrap cards with column and inside the columns add new cards to get 4 * 6, 6 * 5 card matrix
-        complete < 8 ?
+        complete < 2 ?
         <div>
-            <TopNav clickUndo={clickUndo} clickHint={clickHint} complete={complete} />
+            <TopNav clickUndo={clickUndo} clickHint={clickHint} complete={complete} handleTime={handleTime}/>
 
             <CardHolder clickRemCards={clickRemCards} remCards={remCards} complete={complete} />
 
@@ -154,7 +165,11 @@ const Game = () => {
                 }
             </div>
         
-        </div> : <Redirect to="/finish" />
+        </div> : <Redirect to={{
+            pathname: "/finish",
+            state: { time: time,
+                    click: totalClick }
+        }} />
  
     )
 }

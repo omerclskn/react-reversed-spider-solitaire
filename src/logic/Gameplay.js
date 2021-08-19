@@ -86,7 +86,7 @@ export const checkComplete = (allCards, complete, test) => {
                         var node = element // hold head node bcs if sorting complete, we will need to remove from that index
                     }
                     rank += 1
-                    if (rank === 13) {                        
+                    if (rank === 4) {                        
                         test && new Audio(applauseAudio).play()
                         complete += 1
                         removeCardOldPlace(node, allCards)

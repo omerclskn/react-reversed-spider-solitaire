@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ useState } from 'react'
 import '../../assets/css/topNav.css'
 import { Link } from 'react-router-dom'
 import Timer from './Timer'
@@ -10,7 +10,7 @@ import hintIcon from '../../assets/images/help.png'
 import rulesIcon from '../../assets/images/rules.png'
 import useWindowDimensions from '../useWindowDimensions'
 
-const TopNav = ({clickUndo, clickHint, complete}) => {
+const TopNav = ({clickUndo, clickHint, complete, handleTime}) => {
 
     const { width } = useWindowDimensions()
 
@@ -22,7 +22,8 @@ const TopNav = ({clickUndo, clickHint, complete}) => {
     <div className={ "top-nav " + (width < 740 ? "d-flex-col" : "") } >
 
         <div id="timer">
-                <Timer />
+                <Timer handleTime={handleTime} />
+                
             </div>
 
         <ScoreBoard complete={complete} />

@@ -1,21 +1,35 @@
-span{
+.box{
+    display: flex;
+    flex-direction: column;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 20px;
     padding: 30px;
     color:white;
-    font-size: 26px;
+    margin: 0 10%;
+}
+
+.box h3{
+    padding: 10px;
+    border-bottom: 1px solid white;
+}
+
+.stats{
+    display: flex;
+    flex-direction: column;
+    padding: 10px
+}
+
+.stats span{
+    padding: 5px;
 }
 
 .finish-wrap{
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     text-align: center;
 }
 
 .play-again{
-    position: fixed;
-    left: 50%;
-    top: 70%;
-    transform: translate(-50%, -50%);
+    margin: 10% 40% 0;
     background: rgba(0, 0, 0);
 }
