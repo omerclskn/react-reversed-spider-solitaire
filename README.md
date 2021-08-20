@@ -1,70 +1,170 @@
-# Getting Started with Create React App
+# React - Reversed Spider Solitaire
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Game Description
 
-## Available Scripts
+- It is a card game in which all the cards on the table must be arranged in the order A, 2, 3, 4, 5, 6, 7, 8 ,9 , 10, J, Q, K.
+- Playable with both click and drag and drop.
+- Suitable for responsive design.
 
-In the project directory, you can run:
+<hr>
 
-### `yarn start`
+## My Game Rules
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Undo Rules
+- You can undo after success placement
+- You can undo after distribute new cards
+- You cannot undo in a row
+- Undo is triggered after you click a card so you cannot undo if any card selected.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Hint Rules
+- If you click the button when there is a selected card, it finds the eligible card and automatically replaces it.
+- If no card selected, cards that eligible for replacement are displayed for 2 seconds.
 
-### `yarn test`
+### Blank Area Rules
+- If any blank column exist, only A can be placed.
+- You cannot get hint to blank areas.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<hr>
 
-### `yarn build`
+## Game Logic
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+After creating a total of 104 cards consisting of 8 decks, it is divided into 6 columns in the first 4 columns and 5 in the remaining 6 columns.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Each number in the array determines the value of the card in the sample deck and card objects are created based on this value.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<pre> <code> 
+constructor(deck, value, show, active){
+        this.deck = deck;
+        this.value = value;
+        this.show = show;
+        this.active = active
+    }
+</code> </pre>
 
-### `yarn eject`
+- deck: Represents which deck the card comes from.
+- value: Value of card
+- show: Determines whether to show the card.
+- active: Checks if the card is selected.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<hr>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Then the cards in each column are connected to each other with a linked list data structure.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<pre> <code>
+constructor(val) {
+        this.val = val;
+        this.next = null;
+    }
+</code> </pre>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+A new object is created from the first card of each column, val key keeps the card information, and the next one keeps the card information after it, all the cards in the column are connected to each other with a loop.
 
-## Learn More
+Example:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<pre> <code> 
+    val: {
+            value: "1",
+            deck: 2,
+            active: true,
+            show: false
+        },
+        next: {
+            val: {
+                value: "2",
+                deck: 2,
+                active: true,
+                show: false
+            },
+            next: {
+                val: {
+                    value: "3",
+                    deck: 4,
+                    active: true,
+                    show: false
+                },
+                next: null
+            }
+        }
+    }
+    </code> </pre>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+54 cards are created this way. The remaining 50 cards are kept as a card object in a array, when the user requests new cards, the linked list is made available with the necessary function and connected to the last card of each column.
 
-### Code Splitting
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The cards created in this way perform the necessary controls with various functions in the game, and perform the operations of relocating, undoing and giving hints.
 
-### Analyzing the Bundle Size
+<hr>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Folder Structure
 
-### Making a Progressive Web App
+### ----- Assets Folder -----
+- Includes css files, images and sound.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<br>
 
-### Advanced Configuration
+### ----- Components Folder ----- 
+### Pages Folder
+- There are 3 pages defined in the route. The Rules page represents the rules, the Game page represents the main screen where the game is played, and the Finish screen represents the screen that will be shown if the game is successfully completed.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Navbar Folder
+- Navbar component contains elapsed time, score and buttons with 4 different functions.
+- Timer is the component where the elapsed time is calculated.
+- ScoreBoard Component shows the score value based on the total number of decks completed.
 
-### Deployment
+#### Card Folder
+- Default Card Component
+- BlankCard Component represents where to position the decks to be completed.
+- BlankColumnCard represents the component that will be displayed if cards run out in any column.
+- CardTypeFinder determines which image to select based on the cards' values.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### CardHolder Folder
+- Represents the cards to be dealt and the area where BlankCard component displayed.
 
-### `yarn build` fails to minify
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### ----- Logic Folder ----- 
+- In the first step, CardGenerator performs the creation, shuffling and adaptation of the cards to the linked list structure. Returns the cards on the table and the cards to be dealt.
+- The ComponentCreate component handles the correct creation of Card, BlankCard and BlankColumnCard components.
+- Gameplay contains all the main functions required to play the game. It performs the main operations such as Card Selection, Relocation, Undo, New Card Distribution, Hinting. It can be called the brain file of the project :) 
+- linkedlist puts cards into linked list structure.
+
+<br>
+
+### ----- test Folder -----
+- Includes tests of logical functions.
+
+<br>
+
+### Other Files
+- JunkData contains sample data created for tests.
+- useWindowDimensions dynamically calculates the screen width. Required for responsive design. 
+
+<hr>
+
+## Test Results
+
+### Unit Tests
+The logical functions of the game were tested in general and it was seen that successful results were obtained and no errors were found.
+
+![Unit Test](./markdown/unittest.png)
+
+### Cypress Tests
+
+Tested component and UI using Cypress. A total of 27 tests were performed and no errors were found. Particularly focused on responsive design.
+
+![Cypress](./markdown/cypress.png)
+
+## Lightouse Results
+
+### For Desktop
+
+![Lightouse Desktop](./markdown/lightdesktop.png)
+
+### For Mobile
+
+![Lightouse Mobile](./markdown/lightmobile.png)
+
+
+## Demo Site
+[Reversed Spider Solitaire](https://omer-caliskan-react-solitaire.netlify.app/)
