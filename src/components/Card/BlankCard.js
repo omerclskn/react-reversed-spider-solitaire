@@ -1,5 +1,5 @@
 import React from 'react'
-import useWindowDimensions from '../useWindowDimensions'
+import useWindowDimensions from '../../useWindowDimensions'
 
 const BlankCard = ({complete, index}) => {
 

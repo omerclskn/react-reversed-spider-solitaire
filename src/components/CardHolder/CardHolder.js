@@ -3,7 +3,7 @@ import {
     blankWrap
 } from '../../logic/ComponentCreate'
 import '../../assets/css/cardholder.css'
-import useWindowDimensions from '../useWindowDimensions'
+import useWindowDimensions from '../../useWindowDimensions'
 
 const cardholders = (clickRemCards, remCardCount, width2) => {
 

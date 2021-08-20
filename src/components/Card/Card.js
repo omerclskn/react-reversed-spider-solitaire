@@ -1,6 +1,6 @@
 import React from 'react'
 import CardTypeFinder from './CardTypeFinder'
-import useWindowDimensions from '../useWindowDimensions'
+import useWindowDimensions from '../../useWindowDimensions'
 
 const Card = ({marginValue, clickCard, index, card}) => {
 

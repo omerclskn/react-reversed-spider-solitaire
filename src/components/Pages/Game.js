@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../../assets/css/card.css'
 import CardGenerator from '../../logic/CardGenerator'
-import TopNav from '../Navbar/TopNav'
+import Navbar from '../Navbar/Navbar'
 import {  
         clickGetCards, 
         checkComplete,
@@ -163,7 +163,7 @@ const Game = () => {
         // if all decks completed redirect to finish page with stats
         complete < 2 ?
         <div>
-            <TopNav clickUndo={clickUndo} clickHint={clickHint} complete={complete} handleTime={handleTime}/>
+            <Navbar clickUndo={clickUndo} clickHint={clickHint} complete={complete} handleTime={handleTime}/>
 
             <CardHolder clickRemCards={clickRemCards} remCards={remCards} complete={complete} />
 

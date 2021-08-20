@@ -1,5 +1,5 @@
 import React,{ useState } from 'react'
-import '../../assets/css/topNav.css'
+import '../../assets/css/navbar.css'
 import { Link } from 'react-router-dom'
 import Timer from './Timer'
 import ScoreBoard from './ScoreBoard'
@@ -8,9 +8,9 @@ import restartIcon from '../../assets/images/restart.svg'
 import undoIcon from '../../assets/images/undo.png'
 import hintIcon from '../../assets/images/help.png'
 import rulesIcon from '../../assets/images/rules.png'
-import useWindowDimensions from '../useWindowDimensions'
+import useWindowDimensions from '../../useWindowDimensions'
 
-const TopNav = ({clickUndo, clickHint, complete, handleTime}) => {
+const Navbar = ({clickUndo, clickHint, complete, handleTime}) => {
 
     const { width } = useWindowDimensions()
 
@@ -59,4 +59,4 @@ const TopNav = ({clickUndo, clickHint, complete, handleTime}) => {
     )
 }
 
-export default TopNav
+export default Navbar
