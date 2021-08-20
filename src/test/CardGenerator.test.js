@@ -45,8 +45,8 @@ describe("Card Generator Split Test", () => {
     })
 })
 
-describe("Remaining Card Test", () => {
-    it("should return right remaining cards", () => {
+describe("Card Show Test", () => {
+    it("should last card's show is true", () => {
         let truthy = true
         let cards = generateCards()
         cards = splitArray(cards)
