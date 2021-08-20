@@ -2,25 +2,22 @@ import {
     clickGetCards,
     checkComplete,
     firstClick,
-    secondClick,
     removeCardOldPlace,
-    undoPlacement,
     getPrev,
-    getHint,
     removeHighlight,
-    cardsPush,
-    undoPlacementDist,
-    setCardDisplay
+    setCardDisplay,
+    getCompleteHint
 }
     from '../logic/Gameplay';
 import {DataGenerator} from '../JunkData'
 
-let { linked_data1, linked_data2, linked_data3, remCards, complete_deck } = DataGenerator()
+let { linked_data1, linked_data2, linked_data3, linked_data4, remCards, complete_deck } = DataGenerator()
 
 const initializeVariables = () => {
     linked_data1 = DataGenerator().linked_data1
     linked_data2 = DataGenerator().linked_data2
     linked_data3 = DataGenerator().linked_data3
+    linked_data4 = DataGenerator().linked_data4
     remCards = DataGenerator().remCards
     complete_deck = DataGenerator().complete_deck
 }
@@ -226,5 +223,18 @@ describe("getPrev card's visibility", () => {
         let show = getPrev([linked_data1, linked_data2, linked_data3], linked_data1.next)
 
         expect(!show).toBeTruthy()
+    })
+})
+
+describe("check complete hint", () => {
+
+    beforeEach(() => {
+        initializeVariables()
+    })
+
+    it("should return true bcs data is eligible for hint", () => {
+        let truthy = getCompleteHint([linked_data2, linked_data3, linked_data4])
+
+        expect(truthy).toBeTruthy()
     })
 })

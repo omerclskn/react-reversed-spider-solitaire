@@ -95,6 +95,32 @@ export const DataGenerator = () => {
         }
     }
 
+    let linked_data4 = {
+        val: {
+            value: "5",
+            deck: 1,
+            active: false,
+            show: true
+        },
+        next: {
+            val: {
+                value: "10",
+                deck: 5,
+                active: false,
+                show: true
+            },
+            next: {
+                val: {
+                    value: "12",
+                    deck: 7,
+                    active: false,
+                    show: true
+                },
+                next: null
+            }
+        }
+    }
+
     let remCards = [{
             value: "1",
             deck: 1,
@@ -225,6 +251,7 @@ export const DataGenerator = () => {
         linked_data1,
         linked_data2,
         linked_data3,
+        linked_data4,
         remCards,
         complete_deck,
         arrayOfCards

@@ -135,8 +135,7 @@ export const secondClick = (item, highlighted, allCards, index) => {
         removeCardOldPlace(highlighted, allCards)
         allCards[index] = highlighted
         undoControl = true
-        
-    } else if (+item?.val.value === +highlighted.val.value - 1) { // check clicked item is correct for placing highlighted
+    } else if (item !== null && +item.val.value === +highlighted.val.value - 1) { // check clicked item is correct for placing highlighted
         removeCardOldPlace(highlighted, allCards) // remove card from old place
 
         // add selected card to clicked card's next

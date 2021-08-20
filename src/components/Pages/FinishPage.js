@@ -34,13 +34,17 @@ const FinishPage = (props) => {
     }
 
     const style = {
+        position: 'fixed',
         left: 0,
-        top: 100,
-        width: '100%'
+        bottom: 0,
+        width: '100%',
+        height: '100%'
     }
 
     return (
-    <div className="finish-wrap">
+    <div className="finish">
+
+        <div className="finish-wrap">
         
             <div className="box">
                 <h3> Congratulations You WON!! </h3>
@@ -57,6 +61,7 @@ const FinishPage = (props) => {
             className = "btn play-again">
                 Play Again </div>
             </ Link>
+            </div>
             <Fireworks options = { options }
                     style = { style } >
         </Fireworks>

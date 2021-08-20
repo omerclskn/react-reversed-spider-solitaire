@@ -6,6 +6,7 @@
     padding: 30px;
     color:white;
     margin: 0 10%;
+    z-index: 2;
 }
 
 .box h3{
@@ -23,17 +24,27 @@
     padding: 5px;
 }
 
-.finish-wrap{
+.finish{
     width: 100vw;
     min-height: 100vh;
     text-align: center;
 }
 
+.finish-wrap{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+}
+
 .play-again{
+    position: relative;
+    z-index: 2;
     margin: 10% 40% 0;
     background: rgba(0, 0, 0);
 }
 
 p{
+    font-style: italic;
     font-size: 10px;
 }

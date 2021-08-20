@@ -76,20 +76,6 @@ describe("Game Page Test", () => {
         cy.get('.btn').eq(1).click().get('.selectedCard').should('have.length', 2)
     })
 
-    it("should flex-direction column in navbar when phone size", () => {
-        cy.visit("localhost:3000")
-        cy.viewport(550,750)
-
-        cy.get('.top-nav').should('have.class', 'd-flex-col')
-    })
-
-    it("should grid row in cardholder when phone size", () => {
-        cy.visit("localhost:3000")
-        cy.viewport(550, 750)
-
-        cy.get('.top').should('have.class', 'd-grid-row')
-    })
-
     it("should start timer at 00 : 00 : 00", () => {
         cy.visit("localhost:3000")
 
@@ -101,19 +87,119 @@ describe("Game Page Test", () => {
 
         cy.get('.scoreboard').should('contain', '0')
     })
+})
 
-    it("should cards have right height when phone size", () => {
+describe('Game Page Responsive Tests', () => {
+    // width < 910
+    it("should cards have right height when 750 x 550 size", () => {
         cy.visit("localhost:3000")
         cy.viewport(550, 750)
 
         cy.get('.card').eq(10).should('have.css', 'height', '50px')
     })
 
-    it("should cards have right width when phone size", () => {
+    it("should cards have right width when 750 x 550 size", () => {
         cy.visit("localhost:3000")
         cy.viewport(550, 750)
 
         cy.get('.card').eq(10).should('have.css', 'width', '36px')
     })
 
+    // width > 910
+    it("should cards have right height when 1000 x 750 size", () => {
+        cy.visit("localhost:3000")
+        cy.viewport(1000, 750)
+
+        cy.get('.card').eq(10).should('have.css', 'height', '90px')
+    })
+
+    it("should cards have right width when 1000 x 750 size", () => {
+        cy.visit("localhost:3000")
+        cy.viewport(1000, 750)
+
+        cy.get('.card').eq(10).should('have.css', 'width', '65px')
+    })
+
+    // width > 1150
+    it("should cards have right height when 1200 x 750 size", () => {
+        cy.visit("localhost:3000")
+        cy.viewport(1200, 750)
+
+        cy.get('.card').eq(10).should('have.css', 'height', '125px')
+    })
+
+    it("should cards have right width when 1200 x 750 size", () => {
+        cy.visit("localhost:3000")
+        cy.viewport(1200, 750)
+
+        cy.get('.card').eq(10).should('have.css', 'width', '90px')
+    })
+
+    it("should flex-direction column in navbar when phone size", () => {
+        cy.visit("localhost:3000")
+        cy.viewport(550, 750)
+
+        cy.get('.top-nav').should('have.class', 'd-flex-col')
+    })
+
+    it("should grid row in cardholder when phone size", () => {
+        cy.visit("localhost:3000")
+        cy.viewport(550, 750)
+
+        cy.get('.top').should('have.class', 'd-grid-row')
+    })
+})
+
+describe('Dynamic Margin Test for Card', () => {
+    it('should increase by 25', () => {
+        cy.visit('localhost:3000')
+
+        cy.get('.card').eq(10).should('have.css', 'margin-top', '125px')
+
+    })
+
+    it('should increase by 15 when phone size', () => {
+        cy.visit('localhost:3000')
+        cy.viewport(550, 750)
+
+        cy.get('.card').eq(10).should('have.css', 'margin-top', '75px')
+
+    })
+})
+
+describe('Dynamic Margin Test for CardHolder', () => {
+    it('should increase by 30', () => {
+        cy.visit('localhost:3000')
+
+        cy.get('.cardholder').eq(4).should('have.css', 'margin-left', '120px')
+
+    })
+
+    it('should increase by 15 when phone size', () => {
+        cy.visit('localhost:3000')
+        cy.viewport(550, 750)
+
+        cy.get('.cardholder').eq(4).should('have.css', 'margin-left', '60px')
+
+    })
+})
+
+describe('Background Tests', () => {
+    it('should display spider background', () => {
+        cy.visit('localhost:3000')
+
+        cy.get('.blank').eq(0).should('have.css', 'background-image', 'url("http://localhost:3000/static/media/spider-removebg-preview.b1884072.png")')
+    })
+
+    it('should display cards background', () => {
+        cy.visit('localhost:3000')
+
+        cy.get('.cardholder').eq(0).should('have.css', 'background-image', 'url("http://localhost:3000/static/media/closed_card-spider.ff62acf7.png")')
+    })
+
+    it('should display body background', () => {
+        cy.visit('localhost:3000')
+
+        cy.get('body').should('have.css', 'background-image', 'url("http://localhost:3000/static/media/spider-web-background.207c3fc6.png")')
+    })
 })
