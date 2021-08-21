@@ -18,6 +18,27 @@ describe("Rules Page Test", () => {
     })
 })
 
+describe('Component Length Test', () => {
+    it("should have 5 cardholder", () => {
+        cy.visit("localhost:3000")
+
+        cy.get('.cardholder').should('have.length', 5)
+    })
+
+    it("should have 8 blank card for completion", () => {
+        cy.visit("localhost:3000")
+
+        cy.get('.blank').should('have.length', 8)
+    })
+
+    it("should have 59 cards - 54 for board card 5 for cardholder", () => {
+        cy.visit("localhost:3000")
+
+        cy.get('.card').should('have.length', 59)
+    })
+})
+
+
 describe("Game Page Test", () => {
     it("should go to rules page", () => {
         cy.visit("localhost:3000")
@@ -30,6 +51,12 @@ describe("Game Page Test", () => {
         cy.visit("localhost:3000")
 
         cy.get('.card').eq(10).click().should('have.class','selectedCard')
+    })
+
+    it("should have 4 buttons", () => {
+        cy.visit("localhost:3000")
+
+        cy.get('.btn').should('have.length', 4)
     })
 
     it("should click restart then refresh", () => {
@@ -76,18 +103,27 @@ describe("Game Page Test", () => {
         cy.get('.btn').eq(1).click().get('.selectedCard').should('have.length', 2)
     })
 
-    it("should start timer at 00 : 00 : 00", () => {
-        cy.visit("localhost:3000")
-
-        cy.get('.timer > :nth-child(2)').should('contain','00 : 00 : 00')
-    })
-
     it("should score is 0", () => {
         cy.visit("localhost:3000")
 
         cy.get('.scoreboard').should('contain', '0')
     })
 })
+
+describe('Timer Test', () => {
+    it("should start timer at 00 : 00 : 00", () => {
+        cy.visit("localhost:3000")
+
+        cy.get('.timer > :nth-child(2)').should('contain', '00 : 00 : 00')
+    })
+
+    it("should timer is 00 : 00 : 05 when wait 5 sec", () => {
+        cy.visit("localhost:3000")
+        cy.wait(5000)
+        cy.get('.timer > :nth-child(2)').should('contain', '00 : 00 : 05')
+    })
+})
+
 
 describe('Game Page Responsive Tests', () => {
     // width < 910
@@ -188,7 +224,7 @@ describe('Background Tests', () => {
     it('should display spider background', () => {
         cy.visit('localhost:3000')
 
-        cy.get('.blank').eq(0).should('have.css', 'background-image', 'url("http://localhost:3000/static/media/spider-removebg-preview.b1884072.png")')
+        cy.get('.blank').eq(0).should('have.css', 'background-image', 'url("http://localhost:3000/static/media/spider.b1884072.png")')
     })
 
     it('should display cards background', () => {

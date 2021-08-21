@@ -1,19 +1,23 @@
 import {
     clickGetCards,
+    secondClick,
     checkComplete,
     firstClick,
     removeCardOldPlace,
     getPrev,
     removeHighlight,
     setCardDisplay,
-    getCompleteHint
+    getCompleteHint,
+    undoDistribution,
+    getHint
 }
     from '../logic/Gameplay';
 import {DataGenerator} from '../JunkData'
 
-let { linked_data1, linked_data2, linked_data3, linked_data4, remCards, complete_deck } = DataGenerator()
+let { highlighted ,linked_data1, linked_data2, linked_data3, linked_data4, remCards, complete_deck } = DataGenerator()
 
 const initializeVariables = () => {
+    highlighted = DataGenerator().highlighted
     linked_data1 = DataGenerator().linked_data1
     linked_data2 = DataGenerator().linked_data2
     linked_data3 = DataGenerator().linked_data3
@@ -234,6 +238,51 @@ describe("check complete hint", () => {
 
     it("should return true bcs data is eligible for hint", () => {
         let truthy = getCompleteHint([linked_data2, linked_data3, linked_data4])
+
+        expect(truthy).toBeTruthy()
+    })
+})
+
+describe('relocate after second click', () => {
+
+    beforeEach(() => {
+        initializeVariables()
+    })
+
+    it('should relocate a card', () => {
+        const truthy = secondClick(linked_data1.next.next, highlighted, [linked_data1, linked_data2], 0)
+
+        expect(truthy).toBeTruthy()
+    })
+})
+
+describe('undo remaining cards', () => {
+
+    beforeEach(() => {
+        initializeVariables()
+    })
+
+    it('should undo rem cards', () => {
+        const cards = [linked_data1, linked_data2, linked_data3]
+        const prevRem = undoDistribution(cards)
+
+        expect(prevRem).toEqual(
+            [
+                { deck: 4, value: '3', show: false, active: false },
+                { deck: 3, value: '7', show: false, active: false },
+                { deck: 7, value: '11', show: false, active: false }
+            ]
+        )
+    })
+})
+
+describe('selected hint', () => {
+    beforeEach(() => {
+        initializeVariables()
+    })
+
+    it('should relocate selected item with hint', () => {
+        let truthy = getHint([linked_data1, linked_data2, linked_data3], highlighted)
 
         expect(truthy).toBeTruthy()
     })

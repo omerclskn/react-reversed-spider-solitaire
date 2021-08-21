@@ -12,7 +12,7 @@ import {
         getPrev,
         getHint,
         removeHighlight,
-        undoPlacementDist,
+        undoDistribution,
         getCompleteHint
         }
         from '../../logic/Gameplay'
@@ -69,7 +69,7 @@ const Game = () => {
 
         if (canUndo) {
             if (undoDistribute) {
-                const prevRemCards = undoPlacementDist(allCards) // get distributed cards
+                const prevRemCards = undoDistribution(allCards) // get distributed cards
                 setRemCards([...prevRemCards, ...remCards]) // set remaining cards
                 setUndoDistribute(false)
             }

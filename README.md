@@ -105,7 +105,13 @@ The cards created in this way perform the necessary controls with various functi
 
 ### ----- Components Folder ----- 
 ### Pages Folder
-- There are 3 pages defined in the route. The Rules page represents the rules, the Game page represents the main screen where the game is played, and the Finish screen represents the screen that will be shown if the game is successfully completed.
+- There are 3 pages defined in the route. The Rules page represents the rules, the Game page represents the main screen where the game is played, and the Finish Page represents the screen that will be shown if the game is successfully completed.
+
+<pre> <code>
+ .../ => Game Page
+ .../rules => Rules Page
+ .../finish => Finish Page
+</code> </pre>
 
 ### Navbar Folder
 - Navbar component contains elapsed time, score and buttons with 4 different functions.
@@ -145,15 +151,16 @@ The cards created in this way perform the necessary controls with various functi
 ## Test Results
 
 ### Unit Tests
-The logical functions of the game were tested in general and it was seen that successful results were obtained and no errors were found.
+The logical functions of the game were tested in general and it was seen that 22 successful results were obtained and no errors were found. Test coverage is %85
 
 ![Unit Test](./markdown/unittest.png)
 
 ### Cypress Tests
 
-Tested component and UI using Cypress. A total of 27 tests were performed and no errors were found. Particularly focused on responsive design.
+Tested component and UI using Cypress. A total of 32 tests were performed and no errors were found. Particularly focused on responsive design.
 
-![Cypress](./markdown/cypress.png)
+![Cypress1](./markdown/cypress1.png)
+![Cypress2](./markdown/cypress2.png)
 
 ## Lightouse Results
 

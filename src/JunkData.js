@@ -1,5 +1,15 @@
 export const DataGenerator = () => {
 
+    let highlighted = {
+        val: {
+                value: "4",
+                deck: 4,
+                active: true,
+                show: true
+            },
+            next: null
+    }
+
     let arrayOfCards = [{
         value: "1",
         deck: 2,
@@ -14,7 +24,7 @@ export const DataGenerator = () => {
         value: "3",
         deck: 4,
         active: true,
-        show: false
+        show: true
     }]
 
     let linked_data1 = {
@@ -36,7 +46,7 @@ export const DataGenerator = () => {
                     value: "3",
                     deck: 4,
                     active: true,
-                    show: false
+                    show: true
                 },
                 next: null
             }
@@ -248,6 +258,7 @@ export const DataGenerator = () => {
     }
 
     return {
+        highlighted,
         linked_data1,
         linked_data2,
         linked_data3,

@@ -1,6 +1,7 @@
 import {
     shuffleArray,
     splitArray,
+    getRemainingCards,
     generateCards,
     DisplayLastCards
 } from "../logic/CardGenerator";
@@ -14,6 +15,15 @@ describe("Card Generator Shuffle Test", () => {
         const equality = (shuffled === array)
 
         expect(!equality).toBeTruthy()
+    })
+})
+
+describe("Card Generator Remaining Cards Test", () => {
+    it("should remCards length is 50", () => {
+        const array = generateCards()
+        const remArray = getRemainingCards(array)
+
+        expect(remArray.length).toEqual(50)
     })
 })
 
@@ -68,3 +78,4 @@ describe("Card Show Test", () => {
         expect(truthy).toBeTruthy()
     })
 })
+

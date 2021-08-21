@@ -186,7 +186,7 @@ export const undoPlacement = (allCards, prevCards) => {
                 // if blank place directly
                 allCards[index] = prevCards.newHead
             } else{
-                // if not need to place to last element
+                // if not, need to place to last element
                 while (element.next !== null) {
                     element = element.next
                 }
@@ -220,7 +220,7 @@ export const getHint = (allCards, highlighted) => {
     return false
 }
 
-export const undoPlacementDist = (allCards) => {
+export const undoDistribution = (allCards) => {
     // get last cards of every column
     let prevRemCards = []
     for (let index = 0; index < allCards.length; index++) {
