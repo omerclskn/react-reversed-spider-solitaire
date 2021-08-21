@@ -161,7 +161,7 @@ const Game = () => {
         // wrap cards with column and inside the columns add new cards to get 4 * 6, 6 * 5 card matrix
         // call cardholder and navbar components
         // if all decks completed redirect to finish page with stats
-        complete < 2 ?
+        complete < 8 ?
         <div>
             <Navbar clickUndo={clickUndo} clickHint={clickHint} complete={complete} handleTime={handleTime}/>
 
