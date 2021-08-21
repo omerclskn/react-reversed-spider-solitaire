@@ -258,9 +258,10 @@ export const getCompleteHint = (allCards) => {
             if (element2 === null) {
                 continue
             }
-
+            let prev = element2
             // select second card
             while (element2.next !== null) {
+                prev = element2 // keep prev for illogical hint
                 element2 = element2.next
             }
 
@@ -269,7 +270,7 @@ export const getCompleteHint = (allCards) => {
             let cur_value = +element.val.value;
 
             // if eligible show cards for 2 seconds
-            if (next_value === cur_value) {
+            if (next_value === cur_value && +prev.val.value !== next_value) {
                 element.val.active = true
                 element2.val.active = true
 
