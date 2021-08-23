@@ -107,11 +107,10 @@ The cards created in this way perform the necessary controls with various functi
 
 ### ----- Components Folder ----- 
 ### Pages Folder
-- There are 3 pages defined in the route. The Rules page represents the rules, the Game page represents the main screen where the game is played, and the Finish Page represents the screen that will be shown if the game is successfully completed.
+- There are 2 pages defined in the route. The Game page represents the main screen where the game is played, and the Finish Page represents the screen that will be shown if the game is successfully completed.
 
 <pre> <code>
  .../ => Game Page
- .../rules => Rules Page
  .../finish => Finish Page
 </code> </pre>
 
@@ -119,6 +118,7 @@ The cards created in this way perform the necessary controls with various functi
 - Navbar component contains elapsed time, score and buttons with 4 different functions.
 - Timer is the component where the elapsed time is calculated.
 - ScoreBoard Component shows the score value based on the total number of decks completed.
+- Rules component is displayed when the rules button is pressed. Includes game rules.
 
 #### Card Folder
 - Default Card Component

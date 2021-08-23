@@ -1,20 +1,25 @@
-.container {
-    width: 100%;
-    min-height: 100vh;
+.unvisible{
+    display: none;
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.visible{
+    display: block;
 }
 
 .context{
+    position: absolute;
     width: 55%;
     color: rgba(255, 255, 255, 0.8);
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.9);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
 
     border-radius: 20px;
     overflow: hidden;
+    z-index: 2;
+
+    top: 0;
+    left: 0;
+    transform: translate(45%, 10%);
 }
 
 .context h1{

@@ -9,12 +9,21 @@ describe("Finish Page Test", () => {
 })
 
 describe("Rules Page Test", () => {
-    it("should go to game page", () => {
-        cy.visit("localhost:3000/rules")
+    it("should show rules", () => {
+        cy.visit("localhost:3000/")
 
+        cy.get('#rules').click()
+
+        cy.get('.context').should('have.css', 'display', 'block')
+    })
+
+    it("should close rules", () => {
+        cy.visit("localhost:3000/")
+
+        cy.get('#rules').click()
         cy.get('.rule').click()
 
-        cy.url().should('include', 'localhost:3000/')
+        cy.get('.context').should('have.css', 'display', 'none')
     })
 })
 
@@ -40,12 +49,6 @@ describe('Component Length Test', () => {
 
 
 describe("Game Page Test", () => {
-    it("should go to rules page", () => {
-        cy.visit("localhost:3000")
-
-        cy.get('#rules').click()
-        cy.url().should('include', 'localhost:3000/rules')
-    })
 
     it("should click a card then new class will add", () => {
         cy.visit("localhost:3000")
@@ -53,10 +56,10 @@ describe("Game Page Test", () => {
         cy.get('.card').eq(10).click().should('have.class','selectedCard')
     })
 
-    it("should have 4 buttons", () => {
+    it("should have 5 buttons", () => {
         cy.visit("localhost:3000")
 
-        cy.get('.btn').should('have.length', 4)
+        cy.get('.btn').should('have.length', 5)
     })
 
     it("should click restart then refresh", () => {
@@ -66,7 +69,7 @@ describe("Game Page Test", () => {
         cy.url().should('include', 'localhost:3000/')
     })
 
-    it("should cannot click a card then new class won't add", () => {
+    it("should click a nonclickable card then new class won't add", () => {
         cy.visit("localhost:3000")
 
         cy.get('.card').eq(9).click({force: true}).not('.selectedCard')

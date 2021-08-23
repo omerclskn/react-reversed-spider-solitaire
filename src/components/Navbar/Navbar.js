@@ -9,13 +9,19 @@ import undoIcon from '../../assets/images/undo.png'
 import hintIcon from '../../assets/images/help.png'
 import rulesIcon from '../../assets/images/rules.png'
 import useWindowDimensions from '../../useWindowDimensions'
+import Rules from './Rules'
 
 const Navbar = ({clickUndo, clickHint, complete, handleTime}) => {
 
     const { width } = useWindowDimensions()
+    const [ showRules, setShowRules ] = useState(false)
 
     const clickEvent = () => {
         window.location.reload()
+    }
+
+    const handleClick = () => {
+        setShowRules(!showRules)
     }
     
     return ( 
@@ -47,12 +53,13 @@ const Navbar = ({clickUndo, clickHint, complete, handleTime}) => {
                  Restart 
             </div>
 
-        <Link to="/rules">
-            <div className = "btn" id="rules">
+            <div className = "btn" id="rules" onClick={handleClick}>
                 <img src={rulesIcon} alt="Rules" />
                  Rules
             </div>
-        </Link>
+
+            { <Rules showRules={showRules} handleClick={handleClick} /> }
+
         </div>
 
     </div>

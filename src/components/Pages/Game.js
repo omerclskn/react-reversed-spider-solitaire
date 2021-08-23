@@ -54,6 +54,7 @@ const Game = () => {
                 setTotalClick(totalClick + 3)
                 setCanUndo(true)
                 setUndoDistribute(false)
+                CompleteControl()
             } else{
                 // if not eligible card remove highlight 
                 alert("No Hint Found For This Card")
@@ -83,7 +84,7 @@ const Game = () => {
             }
             setCanUndo(false) 
         } else{
-            alert("Please Go to the Rules Page for Undo Rules")
+            alert("Please Click Rules for Undo Rules")
             active && removeHighlight(highlighted)
             setActive(false)
         }

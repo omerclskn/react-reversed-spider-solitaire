@@ -1,12 +1,10 @@
 import React from 'react'
 import '../../assets/css/rules.css'
-import { Link } from 'react-router-dom'
 
-const Rules = () => {
+const Rules = ({showRules ,handleClick}) => {
 
     return (
-        <div className="container">
-            <div className="context">
+            <div className={"context " + (showRules ? "visible" : "unvisible")}>
                 <h1>Rules</h1>
                 <ul>
                     Undo Rules
@@ -24,13 +22,12 @@ const Rules = () => {
                     <li> You cannot get hint to blank areas.</li>
                     <li> You cannot deal new cards if any blank column exist. </li>
                 </ul>
-                <Link to="/">
+
             <div
-            className = "btn rule">
-                Play </div>
-            </ Link>
+            className = "btn rule" onClick={handleClick}>
+                Close </div>
+
             </div>
-        </div>
     )
 }
 

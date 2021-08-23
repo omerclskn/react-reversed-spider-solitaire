@@ -303,7 +303,7 @@ export const getCompleteHint = async (allCards) => {
         while (element !== null && flag) {
             if (hintControl(element, true)) {
                 elementNode = hintControl(element, true)
-                flag = false
+                flag = false // if element found stop loop 
             } else {
                 element = element.next
             }
@@ -327,7 +327,7 @@ export const getCompleteHint = async (allCards) => {
             while (element2 !== null && flag) {
                 if (hintControl(element2, false)) {
                     element2Node = hintControl(element2, false)
-                    flag = false
+                    flag = false // if element found stop loop
                 } else {
                     prev = element2
                     element2 = element2.next
