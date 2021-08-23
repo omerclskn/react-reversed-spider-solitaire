@@ -26,7 +26,7 @@ const FinishPage = (props) => {
     const calculate = () => {
         const value = (2000 + 500) / ( time * click )
         
-        return Math.ceil(value) * 100
+        return Math.ceil(value * 100000)
     }
 
     const options = {
