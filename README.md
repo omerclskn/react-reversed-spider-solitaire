@@ -153,7 +153,7 @@ The cards created in this way perform the necessary controls with various functi
 ## Test Results
 
 ### Unit Tests
-The logical functions of the game were tested in general and it was seen that 22 successful results were obtained and no errors were found. Test coverage is %85
+The logical functions of the game were tested in general and it was seen that 22 successful results were obtained and no errors were found. Test coverage is %71
 
 ![Unit Test](./markdown/unittest.png)
 

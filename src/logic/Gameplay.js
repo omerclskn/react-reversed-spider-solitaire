@@ -14,7 +14,7 @@ export const createLinked = (element) => {
     return new Link(element)
 }
 
-export const removeHighlight = (remove) => {
+export const removeHighlight = async (remove) => {
     // remove card or cards activation/selected/red bordered
     while (remove !== null) {
         remove.val.active = false
@@ -252,46 +252,102 @@ export const undoDistribution = (allCards) => {
     return prevRemCards
 }
 
-export const getCompleteHint = (allCards) => {
+export const hintControl = (item, control) => {
+    if (item !== null) {
+        let head = item; // need to hold head node because after control item's next, clicked item will be lost
+
+        while (item.next !== null) {
+
+            let next_value = +item.next.val.value - 1;
+            let cur_value = +item.val.value;
+            // check cards if in correct order
+            if (next_value !== cur_value) {
+                    return false
+            }
+
+            item = item.next
+        }
+        // need to check control because of if item moved or to be moved
+        if (control) {
+            return item
+        }
+
+        return head
+    }
+}
+
+export const doHighlight = async (element) => {
+    while (element !== null) {
+        element.val.active = true
+        element = element.next
+    }
+}
+
+export const getCompleteHint = async (allCards) => {
+
+    const delay = ms => new Promise(res => setTimeout(res, ms));
 
     for (let index = 0; index < allCards.length; index++) {
         let element = allCards[index];
+        let elementNode
+        let flag = true
 
         if (element === null) {
             continue
         }
-
-        // select column's last card
-        while (element.next !== null) {
+        // pass undisplayed cards
+        while (element.val.show === false) {
             element = element.next
         }
+        
+        while (element !== null && flag) {
+            if (hintControl(element, true)) {
+                elementNode = hintControl(element, true)
+                flag = false
+            } else {
+                element = element.next
+            }
+        }
 
-        for (let index2 = 1; index2 < allCards.length; index2++) {
+        for (let index2 = 0; index2 < allCards.length; index2++) {
             let element2 = allCards[index2]
+            let element2Node
+            let flag = true
+            let prev = element2
 
             if (element2 === null) {
                 continue
             }
-            let prev = element2
-            // select second card
-            while (element2.next !== null) {
-                prev = element2 // keep prev for illogical hint
+            // pass undisplayed cards
+            while (element2.val.show === false) {
                 element2 = element2.next
+                prev = element2
+            }
+
+            while (element2 !== null && flag) {
+                if (hintControl(element2, false)) {
+                    element2Node = hintControl(element2, false)
+                    flag = false
+                } else {
+                    prev = element2
+                    element2 = element2.next
+                }
             }
 
             // check for eligibility
-            let next_value = +element2.val.value - 1;
-            let cur_value = +element.val.value;
+            let next_value = +element2Node.val.value - 1;
+            let cur_value = +elementNode.val.value;
 
             // if eligible show cards for 2 seconds
             if (next_value === cur_value && +prev.val.value !== next_value) {
-                element.val.active = true
-                element2.val.active = true
+                // highlight cards, wait, and remove highlight
+                await doHighlight(elementNode)
+                await doHighlight(element2Node)
 
-                setInterval( function() {
-                    element.val.active = false
-                    element2.val.active = false
-                } , 2000)
+                await delay(2000)
+                
+                await removeHighlight(elementNode)
+                await removeHighlight(element2Node)
 
                 return true
             }

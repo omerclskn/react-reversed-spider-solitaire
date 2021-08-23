@@ -46,7 +46,7 @@ const Game = () => {
         setTime(time)
     }
 
-    const clickHint = () => {
+    const clickHint = async () => {
         // Checking whether there is a selected card 
         if (active) {
             // if yes, control all cards, if any eligible card do replacement
@@ -62,7 +62,8 @@ const Game = () => {
             setActive(false)
         } else{
             // if there is no selected card search all cards for any hint
-            getCompleteHint(allCards) || alert("No Hint Found")
+            let check = await getCompleteHint(allCards)
+            check ? setTotalClick(totalClick + 5) : alert("No Hint Found")
         }
     }
 

@@ -16,6 +16,7 @@ body {
   background: url('../images/spider-web-background.png');
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 code {
