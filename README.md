@@ -21,8 +21,10 @@
 - If no card selected, cards that eligible for replacement are displayed for 2 seconds.
 
 ### Blank Area Rules
-- If any blank column exist, only A can be placed. (Can be done with just click )
+- You can relocate every card to blank columns. (Can be done with just click )
 - You cannot get hint to blank areas.
+- You cannot deal new cards if any blank column exist.
+
 
 <hr>
 

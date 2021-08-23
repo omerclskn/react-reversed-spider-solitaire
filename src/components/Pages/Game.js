@@ -13,7 +13,8 @@ import {
         getHint,
         removeHighlight,
         undoDistribution,
-        getCompleteHint
+        getCompleteHint,
+        anyBlank
         }
         from '../../logic/Gameplay'
 import { cardsPush } from '../../logic/ComponentCreate'
@@ -88,8 +89,10 @@ const Game = () => {
     }
 
     const clickRemCards = () => {
-        new Audio(shuffleAudio).play()
-        // set new remaining cards, request is holding remaining card click count
+
+        if (anyBlank(allCards)) {
+            new Audio(shuffleAudio).play()
+            // set new remaining cards, request is holding remaining card click count
             const {
                 request: newRequest,
                 remCards: newRemCards
@@ -109,6 +112,11 @@ const Game = () => {
             setUndoDistribute(true)
             CompleteControl()
             setTotalClick(totalClick - 5)
+        }
+        else{
+            alert("You must fill all columns for deal new cards")
+        }
+        
     }
 
     const clickCard = (item, index) => (e) => {

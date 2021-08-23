@@ -9,7 +9,8 @@ import {
     setCardDisplay,
     getCompleteHint,
     undoDistribution,
-    getHint
+    getHint,
+    anyBlank
 }
     from '../logic/Gameplay';
 import {DataGenerator} from '../JunkData'
@@ -283,6 +284,19 @@ describe('selected hint', () => {
 
     it('should relocate selected item with hint', () => {
         let truthy = getHint([linked_data1, linked_data2, linked_data3], highlighted)
+
+        expect(truthy).toBeTruthy()
+    })
+})
+
+describe('if null column', () => {
+
+    beforeEach(() => {
+        initializeVariables()
+    })
+
+    it('should return true', () => {
+        let truthy = anyBlank([linked_data1, linked_data2, linked_data3])
 
         expect(truthy).toBeTruthy()
     })

@@ -51,7 +51,21 @@ export const setCardDisplay = (allCards) => {
     }
 }
 
+export const anyBlank = (allCards) => {
+
+    // check if any blank column exist
+    for (let index = 0; index < allCards.length; index++) {
+        let element = allCards[index];
+
+        if (element === null) {
+            return false
+        }
+    }
+    return true
+}
+
 export const clickGetCards = (request, allCards, remCards) => {
+
     // check request bcs only 5 * 10 cards will distribute
         request += 1
         // add new cards to placing cards
@@ -131,7 +145,7 @@ export const firstClick = (item) => {
 
 export const secondClick = (item, highlighted, allCards, index) => {
     let undoControl = false
-    if (item === null && +highlighted.val.value === 1) {
+    if (item === null) {
         removeCardOldPlace(highlighted, allCards)
         allCards[index] = highlighted
         undoControl = true

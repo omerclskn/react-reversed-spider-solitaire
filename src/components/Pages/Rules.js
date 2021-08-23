@@ -20,8 +20,9 @@ const Rules = () => {
                     <li> If no card selected, cards that eligible for replacement are displayed for 2 seconds.</li>
 
                     Blank Area Rules
-                    <li> If any blank column exist, only A can be placed.(Can be done with just click)</li>
+                    <li> You can relocate every card to blank columns. (Can be done with just click ) </li>
                     <li> You cannot get hint to blank areas.</li>
+                    <li> You cannot deal new cards if any blank column exist. </li>
                 </ul>
                 <Link to="/">
             <div

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">83.43% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>140/168</span>
+                <span class='fraction'>146/175</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.67% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>13/15</span>
+                <span class='fraction'>14/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.8% </span>
+                <span class="strong">82.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>130/157</span>
+                <span class='fraction'>135/163</span>
             </div>
         
             
@@ -343,7 +343,19 @@
 <a name='L284'></a><a href='#L284'>284</a>
 <a name='L285'></a><a href='#L285'>285</a>
 <a name='L286'></a><a href='#L286'>286</a>
-<a name='L287'></a><a href='#L287'>287</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -397,6 +409,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -682,7 +706,19 @@ export const setCardDisplay = (allCards) =&gt; {
     }
 }
 &nbsp;
+export const anyBlank = (allCards) =&gt; {
+    for (let index = 0; index &lt; allCards.length; index++) {
+        let element = allCards[index];
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (element === null) {
+<span class="cstat-no" title="statement not covered" >            return false</span>
+        }
+    }
+    return true
+}
+&nbsp;
 export const clickGetCards = (request, allCards, remCards) =&gt; {
+&nbsp;
     // check request bcs only 5 * 10 cards will distribute
         request += 1
         // add new cards to placing cards
@@ -762,7 +798,7 @@ export const firstClick = (item) =&gt; {
 &nbsp;
 export const secondClick = (item, highlighted, allCards, index) =&gt; {
     let undoControl = false
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (item === null &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >+highlighted.val.value === 1)</span> {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (item === null) {
 <span class="cstat-no" title="statement not covered" >        removeCardOldPlace(highlighted, allCards)</span>
 <span class="cstat-no" title="statement not covered" >        allCards[index] = highlighted</span>
 <span class="cstat-no" title="statement not covered" >        undoControl = true</span>
@@ -795,7 +831,7 @@ export const getPrev = (allCards, find) =&gt; {
         let element = allCards[index];
 &nbsp;
         <span class="missing-if-branch" title="if path not taken" >I</span>if (element === null) {
-<span class="cstat-no" title="statement not covered" >            return true</span>
+<span class="cstat-no" title="statement not covered" >            continue</span>
         }
 &nbsp;
         while (element.next!==null) {
@@ -922,7 +958,7 @@ export const getCompleteHint = (allCards) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Aug 21 2021 18:20:04 GMT+0300 (GMT+03:00)
+                at Mon Aug 23 2021 12:07:20 GMT+0300 (GMT+03:00)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
