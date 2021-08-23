@@ -13,7 +13,7 @@
 ### Undo Rules
 - You can undo after success placement
 - You can undo after distribute new cards
-- You cannot undo in a row
+- You cannot undo in a row and after complete deck
 - Undo is triggered after you click a card so you cannot undo if any card selected.
 
 ### Hint Rules
@@ -21,7 +21,7 @@
 - If no card selected, cards that eligible for replacement are displayed for 2 seconds.
 
 ### Blank Area Rules
-- If any blank column exist, only A can be placed.
+- If any blank column exist, only A can be placed. (Can be done with just click )
 - You cannot get hint to blank areas.
 
 <hr>
