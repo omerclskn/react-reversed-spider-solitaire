@@ -164,7 +164,7 @@ export const getPrev = (allCards, find) => {
         let element = allCards[index];
 
         if (element === null) {
-            return true
+            continue
         }
 
         while (element.next!==null) {
